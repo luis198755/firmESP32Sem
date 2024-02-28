@@ -51,10 +51,10 @@ String sessionToken; // Variable to store the session token
 // MQTT Broker
 const char* mqtt_broker = "3.94.215.189";
 const int mqtt_port = 1883;
-const char* espClientMqtt = "ESP32Client00";
-const char* topic = "sem/modo";
-const char* topicProg = "sem/prog";
-const char* topicCtrl = "sem/ctrl";
+const char* espClientMqtt = "ESP32Client03";
+const char* topic = "sem3/modo";
+const char* topicProg = "sem3/prog";
+const char* topicCtrl = "sem3/ctrl";
 
 
 WiFiClient espClient;
@@ -144,16 +144,22 @@ float latitude, longitude, altitude;
 int satellites;
 // -----------------------Librerías GPS----------------------------FIN
 
-////*Definición de pines de McU para control de registros*///
-//int pinData  = 15;
-//int pinLatch = 33;
-//int pinClock = 27;
-//int pinOE = 12;
-
+// -------------------------------------------------------------------
+// *Definición de pines de McU para control de registros* Adafruit ESP32 Feather 
+// -------------------------------------------------------------------
 int pinData  = 12;
 int pinLatch = 33;
 int pinClock = 15;
 int pinOE = 27;
+// -------------------------------------------------------------------
+// *Definición de pines de McU para control de registros* Adafruit Feather ESP32-S2 TFT
+// -------------------------------------------------------------------
+/*
+int pinData  = 12;
+int pinLatch = 11;
+int pinClock = 10;
+int pinOE = 9;
+*/
 ////*Definición de pines de McU de entrada para pruebas*///
 #define CantidadBotonEntrada 4
 int botonEntrada[CantidadBotonEntrada] = {26, 25, 34, 39};
