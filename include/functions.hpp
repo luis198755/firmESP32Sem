@@ -247,6 +247,7 @@ void timeProc01() {
 
 // Inicializa la pantalla OLED
 void initOLED() {
+  Wire.begin();	// inicializa bus I2C
   oled.begin(SSD1306_SWITCHCAPVCC, 0x3C);	// inicializa pantalla con direccion 0x3C
   oled.clearDisplay();			// limpia pantalla
   oled.setTextColor(WHITE);		// establece color al unico disponible (pantalla monocromo)
@@ -463,6 +464,7 @@ void initCard() {
   uint64_t cardSize = SD.cardSize() / (1024 * 1024);
   Serial.printf("SD Card Size: %lluMB\n", cardSize);
 }
+
 // Función que devuelve el número de líneas del archivo en MicroSD
 int progLength (fs::FS &fs, const char * path) {
   int row = 0;
@@ -550,6 +552,53 @@ void readFile(fs::FS &fs, const char * path){
       }
       //Serial.println ();
     }
+}
+
+void initThanks() {
+  readFile(SD, "/prog.txt"); // Lectura de Prueba MicroSD
+
+  myFile = SD.open("/config/ctrl.conf", FILE_READ);
+  if (myFile) {
+    Serial.println("ctrl.conf:");
+    
+    
+    int row = 0; // Row counter
+    while (myFile.available() && row < 8) {
+      String line = myFile.readStringUntil('\n');
+      int startPos = 0;
+      int sepPos = line.indexOf(',', startPos);
+
+      // Parse and store the first column
+      unsigned long firstValue = strtoul(line.substring(startPos, sepPos).c_str(), NULL, 10);
+      firstColumn[row] = firstValue;
+      
+      // Parse and store the remaining columns
+      for (int col = 0; col < 8; col++) {
+        startPos = sepPos + 1;
+        sepPos = line.indexOf(',', startPos);
+        if (sepPos == -1) sepPos = line.length(); // Handle the last value
+        int value = line.substring(startPos, sepPos).toInt();
+        matrix[row][col] = value;
+      }
+      
+      Serial.print("Row ");
+      Serial.print(row);
+      Serial.print(": First Column = ");
+      Serial.print(firstColumn[row]);
+      Serial.print(", Other Columns = ");
+      for (int col = 0; col < 8; col++) {
+        Serial.print(matrix[row][col]);
+        Serial.print(" ");
+      }
+      Serial.println();
+      
+      row++;
+    }
+    myFile.close();
+  } else {
+    Serial.println("error opening ctrl.conf");
+  }
+
 }
 
 // Inicializa Registros de corrimiento
