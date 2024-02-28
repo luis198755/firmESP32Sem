@@ -14,11 +14,11 @@ void webServerTask(void * parameter) {
       if (!client.connected()) {
       reconnect();
       statusWifi = "On";
-    }
-    client.loop();
-    server.handleClient(); // Handle client requests
+      }
+      client.loop();
+      server.handleClient(); // Handle client requests
 
-    dateTime.setClock(); // Set date if RTC lost power
+      dateTime.setClock(); // Set date if RTC lost power
 
     } else {
       //Serial.println("WiFi Not Connected");
