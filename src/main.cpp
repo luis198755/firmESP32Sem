@@ -55,11 +55,10 @@ void setup() {
   initCard(); // MicroSD
   //settingsResetWiFi();
   // Lee la Configuración WiFi
-    if(!settingsReadWiFi()){        
-        // Salvar las configuraciones del WIFI
-        settingsSaveWiFi();
-    }
-  
+  if(!settingsReadWiFi()){        
+      // Salvar las configuraciones del WIFI
+      settingsSaveWiFi();
+  }
   
   initThanks();
   initRTC();  // Reloj de Tiempo Real

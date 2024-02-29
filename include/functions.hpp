@@ -36,7 +36,7 @@ void interfaceProg(unsigned long var32Bits) {
 }
 
 // Función de tiempo real
-void tiempoReal(unsigned long* time, unsigned long* prog, int longitud){
+void tiempoReal(unsigned int* time, unsigned long* prog, int longitud){
   //Revisión de tiempo cumplido
   if ( (millisESP32 () - previousTime >= *(time + indice)) ){
     previousTime = millisESP32 ();
@@ -135,7 +135,6 @@ void modofunc(){
   int lecturaBoton[CantidadBotonEntrada];
   static unsigned long startTime = 0; // To track when button 3 is pressed
   const unsigned long duration = 5000; // 5 seconds in milliseconds
-
 
   for (int i=0; i<CantidadBotonEntrada; i++){
     lecturaBoton[i] = digitalRead(botonEntrada[i]);
