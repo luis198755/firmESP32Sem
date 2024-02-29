@@ -23,7 +23,7 @@ void webServerTask(void * parameter) {
     } else {
       //Serial.println("WiFi Not Connected");
       statusWifi = "Off";
-      wm.autoConnect("AutoConnectAP","password"); // password protected ap
+      wm.autoConnect(ap_nameap,ap_passwordap); // password protected ap
       
     }
 

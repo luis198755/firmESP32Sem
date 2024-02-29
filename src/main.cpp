@@ -32,6 +32,11 @@
 // Archivos *.hpp - Fragmentar el Código
 // -------------------------------------------------------------------
 #include "settings.hpp"
+
+#include "settingsReset.hpp"
+#include "settingsRead.hpp"
+#include "settingsSave.hpp"
+
 #include "program.hpp"
 #include "classes.hpp"
 #include "functions.hpp"
@@ -48,6 +53,14 @@ void setup() {
   initBot(); // Inicializa Botones
   initOLED(); // Pantalla
   initCard(); // MicroSD
+  //settingsResetWiFi();
+  // Lee la Configuración WiFi
+    if(!settingsReadWiFi()){        
+        // Salvar las configuraciones del WIFI
+        settingsSaveWiFi();
+    }
+  
+  
   initThanks();
   initRTC();  // Reloj de Tiempo Real
   initGPS();  // GPS

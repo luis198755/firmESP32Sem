@@ -12,6 +12,7 @@ String estado = "Aislado";
 // -------------------------------------------------------------------
 
 String id = "tl0001";
+char    idDevice[30];                     // ID del dispositivo  
 // Create a JSON object
 StaticJsonDocument<1024> doc; // Adjust size according to your needs 
 // Serialize the JSON object to a string
@@ -23,7 +24,7 @@ String output;
 
 //WiFiManager, Local intialization. Once its business is done, there is no need to keep it around
 WiFiManager wm;
-int timeout = 60; // seconds to run for
+
 // Replace with your network credentials
 wl_status_t status;
 String statusWifi = "Off";
@@ -55,6 +56,24 @@ WiFiClient espClient;
 
 long rssi = 0;
 long txPower = 0;
+
+// -------------------------------------------------------------------
+// Zona WIFI
+// -------------------------------------------------------------------
+char    wifi_ssid[30];              // Red WiFi                 
+char    wifi_passw[30];             // Contraseña da Red WiFi 
+char    wifi_ip_static[15];         // IP Estático   
+int     wifi_mode = WIFI_STA;       // Modo inicial WIFI add
+// -------------------------------------------------------------------
+// Zona AP
+// -------------------------------------------------------------------
+boolean ap_accessPoint;             // Uso de Modo AP 
+char    ap_nameap[5];              // SSID AP      
+char    ap_passwordap[10];          // Password AP
+int     ap_canalap;                 // Canal AP           
+int     ap_hiddenap;                // Es visible o no el AP  (0 - Visible  1 - Oculto)  
+int     ap_connetap;                // Número de conexiones en el AP 
+int     ap_timeout;                 // Wifi MAnager timeout
 
 // -------------------------------------------------------------------
 // Zona MQTT

@@ -102,12 +102,16 @@ void initWifi() {
     // if empty will auto generate SSID, if password is blank it will be anonymous AP (wm.autoConnect())
     // then goes into a blocking loop awaiting configuration and will return success result
     displayInfo("Conectando Wifi ...");
+    delay(500);
     bool res;
     // res = wm.autoConnect(); // auto generated AP name from chipid
     // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
-    wm.setConfigPortalTimeout(timeout);
+    wm.setConfigPortalTimeout(ap_timeout);
 
-    res = wm.autoConnect("AutoConnectAP","password"); // password protected ap
+    displayInfo(String(ap_nameap));
+
+    delay(1000);
+    res = wm.autoConnect(ap_nameap, ap_passwordap); // password protected ap
 
     if(!res) {
         Serial.println("Failed to connect");
