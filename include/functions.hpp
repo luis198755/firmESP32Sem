@@ -209,7 +209,7 @@ void modofunc(){
         break;
     case 3: //Sincronizado
         sincronizado();
-        estado = "Reset Wifi";
+        //estado = "Reset Wifi";
         break;
   }
 }
