@@ -136,6 +136,7 @@ class devicesEsp32 {
       ctrl["estado"] = estado;
       ctrl["resetWifi"] = stateReset;
 
+      // Prog info
       JsonObject escenarios = ctrl.createNestedObject("escenarios");
       JsonArray escenarios1 = escenarios.createNestedArray("1");
       for(int i = 0; i < sizeEscn; i++) {
@@ -235,3 +236,149 @@ class devicesEsp32 {
 };
 
 devicesEsp32 devices;
+
+class ReadConf {
+  private:
+
+    // Assuming max 8 rows for simplicity in the example, adjust as necessary
+    unsigned long firstColumnValues[8]; // Escenarios
+    unsigned int secondToNinthColumns[8][8]; // Ciclos
+
+    unsigned long firstColumnValuesProv[40]; // Escenarios
+    unsigned int secondToNinthColumnsProv[40][8]; // Ciclos
+
+    unsigned int tenthColumnValues[8]; // Sincronías
+    unsigned int eleventhTwelfthColumns[8][2]; // Hora, minutos
+    int rowIndex = 0; // Track the current row index for array storage
+  
+  public:
+
+    void readSCV() {
+      // Open the file for reading
+      myFile = SD.open("/config/progProv.conf", FILE_READ);
+
+      if (myFile) {
+        Serial.println("Reading from file...");
+        // Read from the file until there's nothing else in it:
+        while (myFile.available()) {
+          String csvLine = myFile.readStringUntil('\n');
+          Serial.println(csvLine);
+          parseCSVprov(csvLine);
+        }
+        // Close the file
+        myFile.close();
+      } else {
+        // If the file didn't open, print an error
+        Serial.println("Error opening data.csv for reading");
+      }
+    }
+
+    void parseCSV(String csvLine) {
+      int maxColumns = 12; // Max number of columns in the CSV
+      int columnIndex = 0; // To track the current column index within the row
+
+      // Split the CSV line into tokens
+      int fromIndex = 0;
+      int toIndex = 0;
+      for (int i = 0; i < maxColumns; i++) {
+        toIndex = csvLine.indexOf(',', fromIndex);
+        if (toIndex == -1) toIndex = csvLine.length(); // Last value
+
+        unsigned long value = strtoul(csvLine.substring(fromIndex, toIndex).c_str(), NULL, 10);
+
+        if (i == 0) {
+          // First column, store in unsigned long array
+          firstColumnValues[rowIndex] = value;
+        } else if (i >= 1 && i <= 8) {
+          // Columns 2 to 9, store in 8x8 array
+          secondToNinthColumns[rowIndex][i - 1] = (unsigned int)value;
+        } else if (i == 9) {
+          // Tenth column, store in unsigned int array
+          tenthColumnValues[rowIndex] = (unsigned int)value;
+        } else if (i >= 10 && i <= 11) {
+          // Eleventh and Twelfth columns, store in 8x2 array
+          eleventhTwelfthColumns[rowIndex][i - 10] = (unsigned int)value;
+        }
+
+        fromIndex = toIndex + 1;
+      }
+
+      rowIndex++; // Move to the next row for the next call
+    }
+
+    // Add additional functions or modify existing ones as needed
+    void printArrays() {
+      Serial.println("Escenarios:");
+      for (int i = 0; i < rowIndex; i++) {
+        Serial.println(firstColumnValues[i]);
+      }
+      
+      Serial.println("Ciclos:");
+      for (int i = 0; i < rowIndex; i++) {
+        for (int j = 0; j < 8; j++) {
+          Serial.print(secondToNinthColumns[i][j]);
+          if (j < 7) Serial.print(", ");
+        }
+        Serial.println();
+      }
+      
+      Serial.println("Sincronías:");
+      for (int i = 0; i < rowIndex; i++) {
+        Serial.println(tenthColumnValues[i]);
+      }
+      
+      Serial.println("Hora,Minuto:");
+      for (int i = 0; i < rowIndex; i++) {
+        for (int j = 0; j < 2; j++) {
+          Serial.print(eleventhTwelfthColumns[i][j]);
+          if (j < 1) Serial.print(", ");
+        }
+        Serial.println();
+      }
+    }
+
+    void parseCSVprov(String csvLine) {
+      int maxColumns = 9; // Max number of columns in the CSV
+      int columnIndex = 0; // To track the current column index within the row
+
+      // Split the CSV line into tokens
+      int fromIndex = 0;
+      int toIndex = 0;
+      for (int i = 0; i < maxColumns; i++) {
+        toIndex = csvLine.indexOf(',', fromIndex);
+        if (toIndex == -1) toIndex = csvLine.length(); // Last value
+
+        unsigned long value = strtoul(csvLine.substring(fromIndex, toIndex).c_str(), NULL, 10);
+
+        if (i == 0) {
+          // First column, store in unsigned long array
+          firstColumnValuesProv[rowIndex] = value;
+        } else if (i >= 1 && i <= 8) {
+          // Columns 2 to 9, store in 8x8 array
+          secondToNinthColumnsProv[rowIndex][i - 1] = (unsigned int)value;
+        }
+
+        fromIndex = toIndex + 1;
+      }
+      rowIndex++; // Move to the next row for the next call
+    }
+
+    // Add additional functions or modify existing ones as needed
+    void printArraysProv() {
+      Serial.println("Escenarios:");
+      for (int i = 0; i < rowIndex; i++) {
+        Serial.println(firstColumnValuesProv[i]);
+      }
+      
+      Serial.println("Ciclos:");
+      for (int i = 0; i < rowIndex; i++) {
+        for (int j = 0; j < 8; j++) {
+          Serial.print(secondToNinthColumnsProv[i][j]);
+          if (j < 7) Serial.print(", ");
+        }
+        Serial.println();
+      }
+    }
+
+};
+ReadConf readconf;

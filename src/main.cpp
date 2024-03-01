@@ -53,7 +53,10 @@ void setup() {
   initBot(); // Inicializa Botones
   initOLED(); // Pantalla
   initCard(); // MicroSD
-  //settingsResetWiFi();
+  
+  readconf.readSCV();
+  readconf.printArraysProv();
+  
   // Lee la Configuración WiFi
   if(!settingsReadWiFi()){        
       // Salvar las configuraciones del WIFI
