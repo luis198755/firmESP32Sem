@@ -49,12 +49,14 @@ void setup() {
   Serial.begin(115200);
   
   //////////////////////INICIALIZACIÓN DE HARDWARE/////////////////////////
-  initReg(); // Inicializa Registros
+  exec.initReg(); // Inicializa Registros
+
+
   initBot(); // Inicializa Botones
   initOLED(); // Pantalla
   initCard(); // MicroSD
   
-  readconf.readSCV();
+  readconf.readConf();
   readconf.printArraysProv();
   
   // Lee la Configuración WiFi

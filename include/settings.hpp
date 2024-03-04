@@ -155,10 +155,11 @@ int satellites;
 // -------------------------------------------------------------------
 // *Definición de pines de McU para control de registros* Adafruit ESP32 Feather 
 // -------------------------------------------------------------------
+/*
 int pinData  = 12;
 int pinLatch = 33;
 int pinClock = 15;
-int pinOE = 27;
+int pinOE = 27;*/
 // -------------------------------------------------------------------
 // *Definición de pines de McU para control de registros* Adafruit Feather ESP32-S2 TFT
 // -------------------------------------------------------------------
@@ -173,7 +174,7 @@ int pinOE = 9;
 int botonEntrada[CantidadBotonEntrada] = {26, 25, 34, 39};
 int estadoBoton[CantidadBotonEntrada] = {LOW, LOW, LOW, LOW};
 
-#define LED_PIN 13 // The pin number of the LED
+//#define LED_PIN 13 // The pin number of the LED
 
 // -------------------------------------------------------------------
 // Zona OLED IMAGE

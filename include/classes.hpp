@@ -253,7 +253,7 @@ class ReadConf {
   
   public:
 
-    void readSCV() {
+    void readConf() {
       // Open the file for reading
       myFile = SD.open("/config/progProv.conf", FILE_READ);
 
@@ -382,3 +382,83 @@ class ReadConf {
 
 };
 ReadConf readconf;
+
+class RealTimeExec {
+	private:
+  		int pinData = 12;
+      int pinLatch = 33;
+      int pinClock = 15;
+      int pinOE = 27;
+  		
+      void ledWrite(char Reg4, char Reg3, char Reg2, char Reg1){
+           shiftOut(pinData, pinClock, LSBFIRST, Reg4);
+           shiftOut(pinData, pinClock, LSBFIRST, Reg3);
+           shiftOut(pinData, pinClock, LSBFIRST, Reg2);
+           shiftOut(pinData, pinClock, LSBFIRST, Reg1);
+           digitalWrite(pinLatch, HIGH);
+           digitalWrite(pinLatch, LOW);
+        }
+  			
+  		void interfaceProg(unsigned long var32Bits) {
+          unsigned char var1 = (var32Bits & 0xFF) ^ 0xFF;
+          unsigned char var2 = ((var32Bits >> 8) & 0xFF) ^ 0xFF;
+          unsigned char var3 = ((var32Bits >> 16) & 0xFF) ^ 0xFF;
+          unsigned char var4 = ((var32Bits >> 24) & 0xFF) ^ 0xFF;
+
+      	  ledWrite(var1,var2,var3,var4);
+		}
+  
+  	public:
+  		unsigned long previousTime = 0;
+  		int indice = 0;
+
+      int led_pin = 13; // Embbeded Pin
+  
+  		RealTimeExec () {
+        unsigned long previousTime = 0;
+  		  static int indice = 0;
+  		}
+
+      void initReg() {
+        pinMode(pinData, OUTPUT);
+        pinMode(pinLatch, OUTPUT);
+        pinMode(pinClock, OUTPUT);
+        pinMode(pinOE, OUTPUT);
+        pinMode (led_pin, OUTPUT); // Set the LED pin as output
+
+        ////////////*Desactivar Registros*////////////////////////
+        digitalWrite(pinOE, HIGH);
+        ////////////*Activar Registros*////////////////////////
+        digitalWrite(pinOE, LOW);
+        // Apagado de todas las fases
+        ledWrite(0xff,0xff,0xff,0xff);
+        //interfaceProg(EscOff);
+      }
+  		
+      void tiempoReal(unsigned int* time, unsigned long* prog, int longitud){
+        //Revisión de tiempo cumplido
+        if ( (millisESP32 () - previousTime >= *(time + indice)) ){
+          previousTime = millisESP32 ();
+
+          // Incrementar el índice en uno
+          indice++;
+
+          // Si el índice llega al final del arreglo, reiniciarlo a cero
+          if (indice >= longitud) {
+              indice = 0;
+          }
+          else {
+              // Ejecución de la Programación
+              interfaceProg(*(prog + indice));
+          }
+          /*Serial.print("Indice: ");
+          Serial.println(indice);*/
+        }
+      }
+
+      unsigned long long millisESP32 () {
+        return (unsigned long long) (esp_timer_get_time () / 1000ULL);
+      }
+};
+
+RealTimeExec exec;

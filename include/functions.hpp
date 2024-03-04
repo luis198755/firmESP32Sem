@@ -11,6 +11,7 @@ void displayInfo(String modo) {
 }
 
 ////*Función de interface de Registros de Desplazamiento*////
+/*
 void ledWrite(char Reg4, char Reg3, char Reg2, char Reg1){
    shiftOut(pinData, pinClock, LSBFIRST, Reg4);
    shiftOut(pinData, pinClock, LSBFIRST, Reg3);
@@ -18,7 +19,7 @@ void ledWrite(char Reg4, char Reg3, char Reg2, char Reg1){
    shiftOut(pinData, pinClock, LSBFIRST, Reg1);
    digitalWrite(pinLatch, HIGH);
    digitalWrite(pinLatch, LOW);
-}
+}*/
 
 // Returns the number of milliseconds passed since the ESP32 chip was powered on or reset
 unsigned long long millisESP32 () {
@@ -32,42 +33,42 @@ void interfaceProg(unsigned long var32Bits) {
     unsigned char var3 = ((var32Bits >> 16) & 0xFF) ^ 0xFF;
     unsigned char var4 = ((var32Bits >> 24) & 0xFF) ^ 0xFF;
 
-    ledWrite(var1,var2,var3,var4);
+    //ledWrite(var1,var2,var3,var4);
 }
 
 // Función de tiempo real
-void tiempoReal(unsigned int* time, unsigned long* prog, int longitud){
-  //Revisión de tiempo cumplido
-  if ( (millisESP32 () - previousTime >= *(time + indice)) ){
-    previousTime = millisESP32 ();
+// void tiempoReal(unsigned int* time, unsigned long* prog, int longitud){
+//   //Revisión de tiempo cumplido
+//   if ( (millisESP32 () - previousTime >= *(time + indice)) ){
+//     previousTime = millisESP32 ();
     
-    // Incrementar el índice en uno
-    indice++;
+//     // Incrementar el índice en uno
+//     indice++;
     
-    // Si el índice llega al final del arreglo, reiniciarlo a cero
-    if (indice >= longitud) {
-        indice = 0;
-    }
-    else {
-        // Ejecución de la Programación
-        interfaceProg(*(prog + indice));
-    }
-    /*Serial.print("Indice: ");
-    Serial.println(indice);*/
-  }
-}
+//     // Si el índice llega al final del arreglo, reiniciarlo a cero
+//     if (indice >= longitud) {
+//         indice = 0;
+//     }
+//     else {
+//         // Ejecución de la Programación
+//         interfaceProg(*(prog + indice));
+//     }
+//     /*Serial.print("Indice: ");
+//     Serial.println(indice);*/
+//   }
+// }
 
 // Función de modo aislado
 void aislado(){
-  tiempoReal(time0, prog00, longitud);
+  exec.tiempoReal(time0, prog00, longitud);
 }
 // Función de modo manual
 void manual(){
-  tiempoReal(time0, prog00, longitud);
+  exec.tiempoReal(time0, prog00, longitud);
 }
 // Función de destello
 void destello(){
-  tiempoReal(time1, prog1, longitud1);
+  exec.tiempoReal(time1, prog1, longitud1);
 }
 // Función de sincronización
 void sincronizado(){
@@ -141,9 +142,9 @@ void modofunc(){
 
     if (lecturaBoton[i]==LOW && i==0 && estadoBoton[i] == LOW){
       modo = 0; // Aislado
-      indice = 0;
+      exec.indice = 0;
       estadoBoton[i] = HIGH;
-      previousTime = millisESP32 ();
+      previousTime = exec.millisESP32 ();
     }
     else if (lecturaBoton[i]==HIGH && i==0){
       estadoBoton[i] = LOW;
@@ -151,10 +152,10 @@ void modofunc(){
 
     if (lecturaBoton[i]==LOW && i==1 && estadoBoton[i] == LOW){
       modo = 1; // Manual
-      indice++;
+      exec.indice++;
       estadoBoton[i] = HIGH;
-      previousTime = millisESP32 ();
-      interfaceProg(*(prog00 + indice));
+      previousTime = exec.millisESP32 ();
+      interfaceProg(*(prog00 + exec.indice));
     }
     else if (lecturaBoton[i]==HIGH && i==1){
       estadoBoton[i] = LOW;
@@ -162,9 +163,9 @@ void modofunc(){
 
     if (lecturaBoton[i]==LOW && i==2 && estadoBoton[i] == LOW){
       modo = 2; // Destello
-      indice = 0;
+      exec.indice = 0;
       estadoBoton[i] = HIGH;
-      previousTime = millisESP32 ();
+      previousTime = exec.millisESP32 ();
     }
     else if (lecturaBoton[i]==HIGH && i==2){
       estadoBoton[i] = LOW;
@@ -593,24 +594,25 @@ void initThanks() {
 }
 
 // Inicializa Registros de corrimiento
-void initReg() {
-  //Designación de  pines del mCU como entrada y salida
-  ////////////*Definición de pines como salida*////////////
-  pinMode(pinData, OUTPUT);
-  pinMode(pinLatch, OUTPUT);
-  pinMode(pinClock, OUTPUT);
-  pinMode(pinOE, OUTPUT);
-  
-  pinMode (LED_PIN, OUTPUT); // Set the LED pin as output
 
-  ////////////*Desactivar Registros*////////////////////////
-  digitalWrite(pinOE, HIGH);
-  ////////////*Activar Registros*////////////////////////
-  digitalWrite(pinOE, LOW);
-  // Apagado de todas las fases
-  ledWrite(0xff,0xff,0xff,0xff);
-  //interfaceProg(EscOff);
-}
+// void initReg() {
+//   //Designación de  pines del mCU como entrada y salida
+//   ////////////*Definición de pines como salida*////////////
+//   pinMode(pinData, OUTPUT);
+//   pinMode(pinLatch, OUTPUT);
+//   pinMode(pinClock, OUTPUT);
+//   pinMode(pinOE, OUTPUT);
+  
+//   pinMode (LED_PIN, OUTPUT); // Set the LED pin as output
+
+//   ////////////*Desactivar Registros*////////////////////////
+//   digitalWrite(pinOE, HIGH);
+//   ////////////*Activar Registros*////////////////////////
+//   digitalWrite(pinOE, LOW);
+//   // Apagado de todas las fases
+//   ledWrite(0xff,0xff,0xff,0xff);
+//   //interfaceProg(EscOff);
+// }
 // Inicializa Botones de entrada
 void initBot() {
   ////////////*Definición de pines como entrada*////////////

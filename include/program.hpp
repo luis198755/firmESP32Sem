@@ -202,4 +202,4 @@ int sincroArray1[8] = {70, 0, 0, 0, 0, 0, 0, 0};
 int sizeSincro = sizeof(sincroArray1)/sizeof(sincroArray1[0]);
 
 // Declarar una variable para almacenar el índice del arreglo
-int indice = 0;
+//int indice = 0;

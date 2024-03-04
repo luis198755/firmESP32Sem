@@ -35,7 +35,7 @@ void webServerTask(void * parameter) {
       dateTime.printCurrentDateTime(); // Print the current date and time
       dateTime.displayInfoGPS();
 
-      digitalWrite (LED_PIN, !digitalRead (LED_PIN));
+      digitalWrite (exec.led_pin, !digitalRead (exec.led_pin));
 
       if ( counEvent0 == 10 ) { // Event every 10 s
         devices.sendStatus();
