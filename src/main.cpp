@@ -50,8 +50,6 @@ void setup() {
   
   //////////////////////INICIALIZACIÓN DE HARDWARE/////////////////////////
   exec.initReg(); // Inicializa Registros
-
-
   initBot(); // Inicializa Botones
   initOLED(); // Pantalla
   initCard(); // MicroSD

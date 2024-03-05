@@ -385,10 +385,10 @@ ReadConf readconf;
 
 class RealTimeExec {
 	private:
-  		int pinData = 12;
-      int pinLatch = 33;
-      int pinClock = 15;
-      int pinOE = 27;
+  		int pinData;
+      int pinLatch;
+      int pinClock;
+      int pinOE;
   		
       void ledWrite(char Reg4, char Reg3, char Reg2, char Reg1){
            shiftOut(pinData, pinClock, LSBFIRST, Reg4);
@@ -397,7 +397,7 @@ class RealTimeExec {
            shiftOut(pinData, pinClock, LSBFIRST, Reg1);
            digitalWrite(pinLatch, HIGH);
            digitalWrite(pinLatch, LOW);
-        }
+      }
   			
   		void interfaceProg(unsigned long var32Bits) {
           unsigned char var1 = (var32Bits & 0xFF) ^ 0xFF;
@@ -414,7 +414,18 @@ class RealTimeExec {
 
       int led_pin = 13; // Embbeded Pin
   
-  		RealTimeExec () {
+  		RealTimeExec (int InpinData, int InpinLatch, int InpinClock, int InpinOE) {
+        pinData = InpinData;
+        pinLatch = InpinLatch;
+        pinClock = InpinClock;
+        pinOE = InpinOE;
+
+        /*
+        pinData = 12;
+        pinLatch = 33;
+        pinClock = 15;
+        pinOE = 27;
+        */
         unsigned long previousTime = 0;
   		  static int indice = 0;
   		}
@@ -461,4 +472,4 @@ class RealTimeExec {
       }
 };
 
-RealTimeExec exec;
+RealTimeExec exec(12,33,15,27);
