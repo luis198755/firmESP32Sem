@@ -34,6 +34,8 @@ void webServerTask(void * parameter) {
       
       dateTime.printCurrentDateTime(); // Print the current date and time
       dateTime.displayInfoGPS();
+      
+      scheduler.checkAndTriggerEvents();
 
       digitalWrite (exec.led_pin, !digitalRead (exec.led_pin));
 

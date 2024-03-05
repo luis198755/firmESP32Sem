@@ -42,11 +42,9 @@ public:
           gpsMinute = minute();
         }
 
-        /*
         char buf[20];
         sprintf(buf, "%04d-%02d-%02d %02d:%02d:%02d", now.year(), now.month(), now.day(), now.hour(), now.minute(), now.second());
         Serial.println(buf);
-        */
     }
 
     // Función que muestra hora y fecha en OLED
@@ -471,5 +469,59 @@ class RealTimeExec {
         return (unsigned long long) (esp_timer_get_time () / 1000ULL);
       }
 };
-
 RealTimeExec exec(12,33,15,27);
+
+struct Event {
+    DateTime eventTime;
+    bool triggered;
+
+    Event(const DateTime& dt) : eventTime(dt), triggered(false) {}
+};
+class EventScheduler {
+public:
+    Event* events[8]; // Array to hold up to 8 events
+    int eventCount = 0;
+
+    void scheduleEvent(const DateTime& dt) {
+        if (eventCount < 8) {
+            events[eventCount++] = new Event(dt);
+        }
+    }
+
+    void checkAndTriggerEvents() {
+        DateTime now = rtc.now();
+        for (int i = 0; i < eventCount; i++) {
+            if (!events[i]->triggered && now.unixtime() >= events[i]->eventTime.unixtime()) {
+                events[i]->triggered = true; // Mark event as triggered
+                triggerEvent(i); // Trigger the event
+            }
+        }
+    }
+
+    void triggerEvent(int eventIndex) {
+        Serial.print("Event ");
+        Serial.print(eventIndex + 1); // Adjust for zero-based index to make it human-readable
+        Serial.println(" triggered!");
+        // Add specific actions for each event here
+        // Class EVENT
+    }
+
+    ~EventScheduler() {
+        for (int i = 0; i < eventCount; i++) {
+            delete events[i]; // Clean up dynamically allocated memory
+        }
+    }
+};
+EventScheduler scheduler;
+/*
+class DateTimePrinter {
+public:
+    void printCurrentDateTime() {
+        DateTime now = rtc.now();
+        char buf[20];
+        sprintf(buf, "%04d-%02d-%02d %02d:%02d:%02d", now.year(), now.month(), now.day(), now.hour(), now.minute(), now.second());
+        Serial.println(buf);
+    }
+};
+DateTimePrinter dateTimePrinter;
+*/
