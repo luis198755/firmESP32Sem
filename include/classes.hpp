@@ -315,7 +315,7 @@ class ReadConf {
       Serial.println("Ciclos:");
       for (int i = 0; i < rowIndex; i++) {
         for (int j = 0; j < 8; j++) {
-          Serial.print(secondToNinthColumns[i][j]);
+          Serial.print(time0[i][j]);
           if (j < 7) Serial.print(", ");
         }
         Serial.println();
@@ -354,7 +354,7 @@ class ReadConf {
           prog00[rowIndex] = value;
         } else if (i >= 1 && i <= 8) {
           // Columns 2 to 9, store in 8x8 array
-          secondToNinthColumnsProv[rowIndex][i - 1] = (unsigned int)value;
+          time0[rowIndex][i - 1] = (unsigned int)value;
         }
 
         fromIndex = toIndex + 1;
@@ -372,7 +372,7 @@ class ReadConf {
       Serial.println("Ciclos:");
       for (int i = 0; i < rowIndex; i++) {
         for (int j = 0; j < 8; j++) {
-          Serial.print(secondToNinthColumnsProv[i][j]);
+          Serial.print(time0[i][j]);
           if (j < 7) Serial.print(", ");
         }
         Serial.println();
@@ -447,7 +447,7 @@ class RealTimeExec {
   		
       void tiempoReal(unsigned int* time, unsigned long* prog, int longitud){
         //Revisión de tiempo cumplido
-        if ( (millisESP32 () - previousTime >= *(time + indice)) ){
+        if ( (millisESP32 () - previousTime >= (*(time + indice * (8) + 1))) ){//  *(time + indice)) ){ 
           previousTime = millisESP32 ();
 
           // Incrementar el índice en uno

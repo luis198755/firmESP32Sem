@@ -60,15 +60,15 @@ void interfaceProg(unsigned long var32Bits) {
 
 // Función de modo aislado
 void aislado(){
-  exec.tiempoReal(time0, prog00, readconf.rowIndex);
+  exec.tiempoReal(&time0[0][0], prog00, readconf.rowIndex);
 }
 // Función de modo manual
 void manual(){
-  exec.tiempoReal(time0, prog00, readconf.rowIndex);
+  exec.tiempoReal(&time0[0][0], prog00, readconf.rowIndex);
 }
 // Función de destello
 void destello(){
-  exec.tiempoReal(time1, prog1, longitud1);
+  exec.tiempoReal(&time0[0][0], prog1, longitud1);
 }
 // Función de sincronización
 void sincronizado(){
