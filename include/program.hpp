@@ -1,48 +1,49 @@
 // Arreglos de programación
-unsigned long prog00[31] = {
-                            0b00000000000000000000000000000000, // 
+// unsigned long prog00[31] = {
+//                             0b00000000000000000000000000000000, // 
                             
-                            0b00100100100110010000000000000000, // ***Escenario 1***
+//                             0b00100100100110010000000000000000, // ***Escenario 1***
 
-                            0b00000000000110010000000000000000, // Transición de Verde a Ambar
-                            0b00100100100110010000000000000000, // Transición de Verde a Ambar
-                            0b00000000000110010000000000000000, // Transición de Verde a Ambar
-                            0b00100100100110010000000000000000, // Transición de Verde a Ambar
-                            0b00000000000110010000000000000000, // Transición de Verde a Ambar
-                            0b00100100100110010000000000000000, // Transición de Verde a Ambar
-                            0b00000000000110010000000000000000, // Transición de Verde a Ambar
-                            0b00100100100110010000000000000000, // Transición de Verde a Ambar
+//                             0b00000000000110010000000000000000, // Transición de Verde a Ambar
+//                             0b00100100100110010000000000000000, // Transición de Verde a Ambar
+//                             0b00000000000110010000000000000000, // Transición de Verde a Ambar
+//                             0b00100100100110010000000000000000, // Transición de Verde a Ambar
+//                             0b00000000000110010000000000000000, // Transición de Verde a Ambar
+//                             0b00100100100110010000000000000000, // Transición de Verde a Ambar
+//                             0b00000000000110010000000000000000, // Transición de Verde a Ambar
+//                             0b00100100100110010000000000000000, // Transición de Verde a Ambar
 
-                            0b01001001000110010000000000000000, // Transición de Verde a Ambar
+//                             0b01001001000110010000000000000000, // Transición de Verde a Ambar
 
-                            0b10010010000110000100000000000000, // ***Escenario 2***
+//                             0b10010010000110000100000000000000, // ***Escenario 2***
 
-                            0b10010010000010000000000000000000, // Transición de Verde a Ambar
-                            0b10010010000110000100000000000000, // Transición de Verde a Ambar
-                            0b10010010000010000000000000000000, // Transición de Verde a Ambar
-                            0b10010010000110000100000000000000, // Transición de Verde a Ambar
-                            0b10010010000010000000000000000000, // Transición de Verde a Ambar
-                            0b10010010000110000100000000000000, // Transición de Verde a Ambar
-                            0b10010010000010000000000000000000, // Transición de Verde a Ambar
-                            0b10010010000110000100000000000000, // Transición de Verde a Ambar
+//                             0b10010010000010000000000000000000, // Transición de Verde a Ambar
+//                             0b10010010000110000100000000000000, // Transición de Verde a Ambar
+//                             0b10010010000010000000000000000000, // Transición de Verde a Ambar
+//                             0b10010010000110000100000000000000, // Transición de Verde a Ambar
+//                             0b10010010000010000000000000000000, // Transición de Verde a Ambar
+//                             0b10010010000110000100000000000000, // Transición de Verde a Ambar
+//                             0b10010010000010000000000000000000, // Transición de Verde a Ambar
+//                             0b10010010000110000100000000000000, // Transición de Verde a Ambar
 
-                            0b10010010001010001000000000000000, // Transición de Verde a Ambar
+//                             0b10010010001010001000000000000000, // Transición de Verde a Ambar
 
-                            0b10010000110000110000000000000000, // ***Escenario 3***
+//                             0b10010000110000110000000000000000, // ***Escenario 3***
 
-                            0b10010000110000010000000000000000, // Transición de Verde a Ambar
-                            0b10010000110000110000000000000000, // Transición de Verde a Ambar
-                            0b10010000110000010000000000000000, // Transición de Verde a Ambar
-                            0b10010000110000110000000000000000, // Transición de Verde a Ambar
-                            0b10010000110000010000000000000000, // Transición de Verde a Ambar
-                            0b10010000110000110000000000000000, // Transición de Verde a Ambar
-                            0b10010000110000010000000000000000, // Transición de Verde a Ambar
-                            0b10010000110000110000000000000000, // Transición de Verde a Ambar
+//                             0b10010000110000010000000000000000, // Transición de Verde a Ambar
+//                             0b10010000110000110000000000000000, // Transición de Verde a Ambar
+//                             0b10010000110000010000000000000000, // Transición de Verde a Ambar
+//                             0b10010000110000110000000000000000, // Transición de Verde a Ambar
+//                             0b10010000110000010000000000000000, // Transición de Verde a Ambar
+//                             0b10010000110000110000000000000000, // Transición de Verde a Ambar
+//                             0b10010000110000010000000000000000, // Transición de Verde a Ambar
+//                             0b10010000110000110000000000000000, // Transición de Verde a Ambar
 
-                            0b10010000110001010000000000000000  // Transición de Verde a Ambar
+//                             0b10010000110001010000000000000000  // Transición de Verde a Ambar
 
-};
-int longitud = sizeof(prog00) / sizeof(prog00[0]);
+// };
+// int longitud = sizeof(prog00) / sizeof(prog00[0]);
+unsigned long prog00[31];
 
 // Time array
 unsigned int time0[31] = {  

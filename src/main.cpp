@@ -56,6 +56,9 @@ void setup() {
   
   readconf.readConf();
   readconf.printArraysProv();
+
+  Serial.print("size: ");
+  Serial.println(readconf.rowIndex);
   
   // Lee la Configuración WiFi
   if(!settingsReadWiFi()){        

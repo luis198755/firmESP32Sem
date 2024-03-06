@@ -41,10 +41,11 @@ public:
           gpsHour = hour();
           gpsMinute = minute();
         }
-
+        /*
         char buf[20];
-        sprintf(buf, "%04d-%02d-%02d %02d:%02d:%02d", now.year(), now.month(), now.day(), now.hour(), now.minute(), now.second());
+        sprintf(buf, "%02d-%02d-%04d %02d:%02d:%02d", now.day(), now.month(), now.year(), now.hour(), now.minute(), now.second());
         Serial.println(buf);
+        */
     }
 
     // Función que muestra hora y fecha en OLED
@@ -236,8 +237,11 @@ class devicesEsp32 {
 devicesEsp32 devices;
 
 class ReadConf {
-  private:
-
+  //private:
+  //  int rowIndex = 0; // Track the current row index for array storage
+  
+  public:
+    int rowIndex = 0; // Track the current row index for array storage
     // Assuming max 8 rows for simplicity in the example, adjust as necessary
     unsigned long firstColumnValues[8]; // Escenarios
     unsigned int secondToNinthColumns[8][8]; // Ciclos
@@ -247,9 +251,6 @@ class ReadConf {
 
     unsigned int tenthColumnValues[8]; // Sincronías
     unsigned int eleventhTwelfthColumns[8][2]; // Hora, minutos
-    int rowIndex = 0; // Track the current row index for array storage
-  
-  public:
 
     void readConf() {
       // Open the file for reading
@@ -350,7 +351,7 @@ class ReadConf {
 
         if (i == 0) {
           // First column, store in unsigned long array
-          firstColumnValuesProv[rowIndex] = value;
+          prog00[rowIndex] = value;
         } else if (i >= 1 && i <= 8) {
           // Columns 2 to 9, store in 8x8 array
           secondToNinthColumnsProv[rowIndex][i - 1] = (unsigned int)value;
@@ -365,7 +366,7 @@ class ReadConf {
     void printArraysProv() {
       Serial.println("Escenarios:");
       for (int i = 0; i < rowIndex; i++) {
-        Serial.println(firstColumnValuesProv[i]);
+        Serial.println(prog00[i]);
       }
       
       Serial.println("Ciclos:");
@@ -525,3 +526,26 @@ public:
 };
 DateTimePrinter dateTimePrinter;
 */
+
+class Events {
+    private:
+        int indHora;
+        int indMinuto;
+        int indCiclo;
+        int indSincronia;
+
+    public:
+      Events () {
+
+      }
+
+      void print () {
+        Serial.println("Escenarios:");
+        for (int i = 0; i < 8; i++) {
+          Serial.println("ReadConf::firstColumnValues[i]");
+        }
+      }
+};
+Events events;
+
+//unsigned int ciclos[40][8], unsigned int sincronias[8], unsigned int horaMinutos[8][2]

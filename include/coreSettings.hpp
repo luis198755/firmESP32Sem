@@ -37,6 +37,8 @@ void webServerTask(void * parameter) {
       
       scheduler.checkAndTriggerEvents();
 
+      //events.print();
+
       digitalWrite (exec.led_pin, !digitalRead (exec.led_pin));
 
       if ( counEvent0 == 10 ) { // Event every 10 s
