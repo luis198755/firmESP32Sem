@@ -41,11 +41,11 @@ public:
           gpsHour = hour();
           gpsMinute = minute();
         }
-        /*
+        
         char buf[20];
         sprintf(buf, "%02d-%02d-%04d %02d:%02d:%02d", now.day(), now.month(), now.year(), now.hour(), now.minute(), now.second());
         Serial.println(buf);
-        */
+        
     }
 
     // Función que muestra hora y fecha en OLED
@@ -410,8 +410,8 @@ class RealTimeExec {
   	public:
   		unsigned long previousTime = 0;
   		int indice = 0;
-
       int led_pin = 13; // Embbeded Pin
+      int ciclo = 1;
   
   		RealTimeExec (int InpinData, int InpinLatch, int InpinClock, int InpinOE) {
         pinData = InpinData;
@@ -447,7 +447,7 @@ class RealTimeExec {
   		
       void tiempoReal(unsigned int* time, unsigned long* prog, int longitud){
         //Revisión de tiempo cumplido
-        if ( (millisESP32 () - previousTime >= (*(time + indice * (8) + 1))) ){//  *(time + indice)) ){ 
+        if ( (millisESP32 () - previousTime >= (*(time + indice * (8) + ciclo))) ){//  *(time + indice)) ){ 
           previousTime = millisESP32 ();
 
           // Incrementar el índice en uno

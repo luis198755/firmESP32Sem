@@ -68,7 +68,7 @@ void manual(){
 }
 // Función de destello
 void destello(){
-  exec.tiempoReal(&time0[0][0], prog1, longitud1);
+  exec.tiempoReal(&time1[0], prog1, longitud1);
 }
 // Función de sincronización
 void sincronizado(){
