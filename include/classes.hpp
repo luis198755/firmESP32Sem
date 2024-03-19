@@ -484,6 +484,27 @@ class RealTimeExec {
         }
       }
 
+      void tiempoRealDestello(unsigned int* time, unsigned long* prog, int longitud){
+        //Revisión de tiempo cumplido
+        if ( (millisESP32 () - previousTime >= *(time + indice)) ){ //  *(time + indice)) ){ 
+          previousTime = millisESP32 ();
+
+          // Incrementar el índice en uno
+          indice++;
+
+          // Si el índice llega al final del arreglo, reiniciarlo a cero
+          if (indice >= longitud) {
+              indice = 0;
+          }
+          else {
+              // Ejecución de la Programación
+              interfaceProg(*(prog + indice));
+          }
+          /*Serial.print("Indice: ");
+          Serial.println(indice);*/
+        }
+      }
+
       unsigned long long millisESP32 () {
         return (unsigned long long) (esp_timer_get_time () / 1000ULL);
       }

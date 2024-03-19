@@ -59,7 +59,7 @@ void manual(){
 }
 // Función de destello
 void destello(){
-  exec.tiempoReal(&time1[0], prog1, longitud1);
+  exec.tiempoRealDestello(&time1[0], prog1, longitud1);
 }
 // Función de sincronización
 void sincronizado(){
@@ -958,12 +958,14 @@ void callback(char* topic, byte* message, unsigned int length) {
         break;
       case 2:
         modo = 0; // Aislado
+        exec.indice = 0;
         break;
       case 3:
         modo = 1; // Manual
         break;
       case 4:
         modo = 2; // Destello
+        exec.indice = 0;
         break;
       case 5:
         rtc.adjust(DateTime(gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond));
