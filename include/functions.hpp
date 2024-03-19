@@ -1,14 +1,5 @@
 //////////////////////*Funciones*/////////////////////////
-// Función de escritura de OLED
-void displayInfo(String modo) {
-   /////////////////////OLED////////////////////////////
-    oled.clearDisplay();			// limpia pantalla
-    oled.setTextColor(WHITE);		// establece color al unico disponible (pantalla monocromo)
-    oled.setCursor(0, 0);			// ubica cursor en inicio de coordenadas 0,0
-    oled.setTextSize(1);			// establece tamano de texto en 1
-    oled.print(modo); 	// escribe en pantalla el texto
-    oled.display();			// muestra en pantalla todo lo establecido anteriormente
-}
+
 
 ////*Función de interface de Registros de Desplazamiento*////
 /*
@@ -102,14 +93,14 @@ void initWifi() {
     // if connection fails, it starts an access point with the specified name ( "AutoConnectAP"),
     // if empty will auto generate SSID, if password is blank it will be anonymous AP (wm.autoConnect())
     // then goes into a blocking loop awaiting configuration and will return success result
-    displayInfo("Conectando Wifi ...");
+    oledtl.displayInfo("Conectando Wifi ...");
     delay(500);
     bool res;
     // res = wm.autoConnect(); // auto generated AP name from chipid
     // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
     wm.setConfigPortalTimeout(ap_timeout);
 
-    displayInfo(String(ap_nameap));
+    oledtl.displayInfo(String(ap_nameap));
 
     delay(1000);
     res = wm.autoConnect(ap_nameap, ap_passwordap); // password protected ap
@@ -122,7 +113,7 @@ void initWifi() {
     else {
         //if you get here you have connected to the WiFi    
         //Serial.println("connected...yeey :)");
-        displayInfo("IP: " + WiFi.localIP().toString());
+        oledtl.displayInfo("IP: " + WiFi.localIP().toString());
     }
     
     WiFi.setTxPower(WIFI_POWER_MINUS_1dBm); // This sets the power to the lowest possible value

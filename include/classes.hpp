@@ -1,4 +1,19 @@
 ///////////////////////*Classes*/////////////////////////////////
+class oledTL {
+  public:
+    // Función de escritura de OLED
+    void displayInfo(String modo) {
+      /////////////////////OLED////////////////////////////
+        oled.clearDisplay();			// limpia pantalla
+        oled.setTextColor(WHITE);		// establece color al unico disponible (pantalla monocromo)
+        oled.setCursor(0, 0);			// ubica cursor en inicio de coordenadas 0,0
+        oled.setTextSize(1);			// establece tamano de texto en 1
+        oled.print(modo); 	// escribe en pantalla el texto
+        oled.display();			// muestra en pantalla todo lo establecido anteriormente
+    }
+};
+oledTL oledtl;
+
 class dateTimeMan {
 public:
     void setTimeFromNTP() {
@@ -6,22 +21,25 @@ public:
       DateTime now = DateTime(timeClient.getEpochTime());
       rtc.adjust(now);
       Serial.println("Time set from NTP server");
+      oledtl.displayInfo("Time set from NTP server");
     }
     void setClock () {
       if (rtc.lostPower()) {
-      Serial.println("RTC lost power, lets set the time!");
-      // following line sets the RTC to the date & time this sketch was compiled
-      // Set the RTC to the date & time this sketch was compiled
-      //rtc.adjust(DateTime(__DATE__, __TIME__));
-      //rtc.adjust(DateTime(year(), month(), day(), hour(), minute(), second()));
-      // This line sets the RTC with an explicit date & time, for example to set
-      // January 21, 2014 at 3am you would call:
-      //rtc.adjust(DateTime(2023, 2, 14, 9, 37, 0));
+        Serial.println("RTC lost power, lets set the time!");
+        // following line sets the RTC to the date & time this sketch was compiled
+        // Set the RTC to the date & time this sketch was compiled
+        //rtc.adjust(DateTime(__DATE__, __TIME__));
+        //rtc.adjust(DateTime(year(), month(), day(), hour(), minute(), second()));
+        // This line sets the RTC with an explicit date & time, for example to set
+        // January 21, 2014 at 3am you would call:
+        //rtc.adjust(DateTime(2023, 2, 14, 9, 37, 0));
 
-      // Initialize the NTP client
-      timeClient.begin();
-      // Update the time
-      setTimeFromNTP();
+        // Initialize the NTP client
+        timeClient.begin();
+        delay(500);
+        // Update the time
+        setTimeFromNTP();
+        delay(1500);
       }
     }
     void printCurrentDateTime() {
@@ -42,9 +60,9 @@ public:
           gpsMinute = minute();
         }
         
-        char buf[20];
-        sprintf(buf, "%02d-%02d-%04d %02d:%02d:%02d", now.day(), now.month(), now.year(), now.hour(), now.minute(), now.second());
-        Serial.println(buf);
+        // char buf[20];
+        // sprintf(buf, "%02d-%02d-%04d %02d:%02d:%02d", now.day(), now.month(), now.year(), now.hour(), now.minute(), now.second());
+        // Serial.println(buf);
         
     }
 

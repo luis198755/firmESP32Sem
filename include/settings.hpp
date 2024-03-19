@@ -11,7 +11,7 @@ String estado = "Aislado";
 // Zona JSON
 // -------------------------------------------------------------------
 
-String id = "tl0001";
+String id = "tl0004";
 char    idDevice[30];                     // ID del dispositivo  
 // Create a JSON object
 StaticJsonDocument<1024> doc; // Adjust size according to your needs 
@@ -35,7 +35,8 @@ WiFiUDP ntpUDP;
 //
 //pool.ntp.org
 //mx.pool.ntp.org
-NTPClient timeClient(ntpUDP, "time-a-g.nist.gov", -21600, 60000);
+//time-a-g.nist.gov
+NTPClient timeClient(ntpUDP, "mx.pool.ntp.org", -21600, 60000);
 /*
 const char* ssid = "NOC_TL";
 const char* password = "TRAFF1CNOC23";
@@ -82,7 +83,7 @@ int     ap_timeout;                 // Wifi MAnager timeout
 // MQTT Broker
 const char* mqtt_broker = "3.94.215.189";
 const int mqtt_port = 1883;
-const char* espClientMqtt = "ESP32Client00";
+const char* espClientMqtt = "ESP32Client04";
 const char* topic = "sem/modo";
 const char* topicProg = "sem/prog";
 const char* topicCtrl = "sem/ctrl";
