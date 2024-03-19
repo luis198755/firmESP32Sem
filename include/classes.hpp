@@ -12,6 +12,18 @@ class oledTL {
         oled.print(modo); 	// escribe en pantalla el texto
         oled.display();			// muestra en pantalla todo lo establecido anteriormente
     }
+
+    // Función que muestra mensaje en oled
+    void showOLED(unsigned long mensaje) {
+      oled.clearDisplay();			// limpia pantalla
+      oled.setTextColor(WHITE);		// establece color al unico disponible (pantalla monocromo)
+      oled.setCursor(0, 0);			// ubica cursor en inicio de coordenadas 0,0
+      oled.setTextSize(1);			// establece tamano de texto en 1
+      //oled.print("Modo: "); 	// escribe en pantalla el texto
+      oled.print(mensaje);
+
+      oled.display();			// muestra en pantalla todo lo establecido anteriormente
+    }
 };
 oledTL oledtl;
 
@@ -430,7 +442,7 @@ class RealTimeExec {
   		unsigned long previousTime = 0;
   		int indice = 0;
       int led_pin = 13; // Embbeded Pin
-      int ciclo = 1;
+      int ciclo = 0;
   
   		RealTimeExec (int InpinData, int InpinLatch, int InpinClock, int InpinOE) {
         pinData = InpinData;
@@ -618,7 +630,7 @@ class modFunc {
     void sincronizado(){
     // Pendiente  
     }
-    
+
   public:
     // Función de Modo
     void modofunc(){

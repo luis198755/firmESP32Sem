@@ -194,21 +194,17 @@ void initRTC() {
     while (1);
   }
 
-  
-  
   // Store the current time
   //last_time = rtc.now();
   
-  
   //DateTime now = rtc.now();
-
 
   // Print initialization message
   Serial.println("Inicio");
 }
 
 // Función de lectura de info de GPS
-void readGPS() {
+//void readGPS() {
 
   // This sketch displays information every time a new sentence is correctly encoded.
   //while (Serial1.available() > 0){
@@ -238,7 +234,7 @@ void readGPS() {
       
   //}
   
-}
+//}
 
 // Función de lectura de info de GPS
 /*
@@ -361,22 +357,10 @@ int progLength (fs::FS &fs, const char * path) {
 
   return row-1;
 }
-// Función que muestra mensaje en oled
-void showOLED(unsigned long mensaje) {
-  oled.clearDisplay();			// limpia pantalla
-  oled.setTextColor(WHITE);		// establece color al unico disponible (pantalla monocromo)
-  oled.setCursor(0, 0);			// ubica cursor en inicio de coordenadas 0,0
-  oled.setTextSize(1);			// establece tamano de texto en 1
-  //oled.print("Modo: "); 	// escribe en pantalla el texto
-  oled.print(mensaje);
-
-  oled.display();			// muestra en pantalla todo lo establecido anteriormente
-
-}
 
 // Función que lee el archivo en MicroSD
 void readFile(fs::FS &fs, const char * path){
-    showOLED(55);
+    oledtl.showOLED(55);
     String line = ""; // to store each line
     int row = 0; // to keep track of the row index
     int col = 0; // to keep track of the column index
@@ -425,7 +409,7 @@ void readFile(fs::FS &fs, const char * path){
       for (int j = 0; j < 2; j++) {
         
         //Serial.print (matrix [i] [j], DEC); // print the matrix element in decimal format
-        showOLED(matrix [i] [j]);
+        oledtl.showOLED(matrix [i] [j]);
         //Serial.print (" ");
       }
       //Serial.println ();
@@ -479,26 +463,6 @@ void initThanks() {
 
 }
 
-// Inicializa Registros de corrimiento
-
-// void initReg() {
-//   //Designación de  pines del mCU como entrada y salida
-//   ////////////*Definición de pines como salida*////////////
-//   pinMode(pinData, OUTPUT);
-//   pinMode(pinLatch, OUTPUT);
-//   pinMode(pinClock, OUTPUT);
-//   pinMode(pinOE, OUTPUT);
-  
-//   pinMode (LED_PIN, OUTPUT); // Set the LED pin as output
-
-//   ////////////*Desactivar Registros*////////////////////////
-//   digitalWrite(pinOE, HIGH);
-//   ////////////*Activar Registros*////////////////////////
-//   digitalWrite(pinOE, LOW);
-//   // Apagado de todas las fases
-//   ledWrite(0xff,0xff,0xff,0xff);
-//   //interfaceProg(EscOff);
-// }
 // Inicializa Botones de entrada
 void initBot() {
   ////////////*Definición de pines como entrada*////////////
