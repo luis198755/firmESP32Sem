@@ -1,4 +1,5 @@
 ///////////////////////*Classes*/////////////////////////////////
+
 class oledTL {
   public:
     // Función de escritura de OLED
@@ -588,3 +589,118 @@ class Events {
 Events events;
 
 //unsigned int ciclos[40][8], unsigned int sincronias[8], unsigned int horaMinutos[8][2]
+
+class modFunc {
+  private:
+    // Función de interface 32 a 8 bits - en base a variables
+    void interfaceProg(unsigned long var32Bits) {
+        unsigned char var1 = (var32Bits & 0xFF) ^ 0xFF;
+        unsigned char var2 = ((var32Bits >> 8) & 0xFF) ^ 0xFF;
+        unsigned char var3 = ((var32Bits >> 16) & 0xFF) ^ 0xFF;
+        unsigned char var4 = ((var32Bits >> 24) & 0xFF) ^ 0xFF;
+
+        //ledWrite(var1,var2,var3,var4);
+    }
+
+    // Función de modo aislado
+    void aislado(){
+      exec.tiempoReal(&time0[0][0], prog00, readconf.rowIndex);
+    }
+    // Función de modo manual
+    void manual(){
+      exec.tiempoReal(&time0[0][0], prog00, readconf.rowIndex);
+    }
+    // Función de destello
+    void destello(){
+      exec.tiempoRealDestello(&time1[0], prog1, longitud1);
+    }
+    // Función de sincronización
+    void sincronizado(){
+    // Pendiente  
+    }
+    
+  public:
+    // Función de Modo
+    void modofunc(){
+      int lecturaBoton[CantidadBotonEntrada];
+      static unsigned long startTime = 0; // To track when button 3 is pressed
+      const unsigned long duration = 5000; // 5 seconds in milliseconds
+
+      for (int i=0; i<CantidadBotonEntrada; i++){
+        lecturaBoton[i] = digitalRead(botonEntrada[i]);
+
+        if (lecturaBoton[i]==LOW && i==0 && estadoBoton[i] == LOW){
+          modo = 0; // Aislado
+          exec.indice = 0;
+          estadoBoton[i] = HIGH;
+          previousTime = exec.millisESP32 ();
+        }
+        else if (lecturaBoton[i]==HIGH && i==0){
+          estadoBoton[i] = LOW;
+        }
+
+        if (lecturaBoton[i]==LOW && i==1 && estadoBoton[i] == LOW){
+          modo = 1; // Manual
+          exec.indice++;
+          estadoBoton[i] = HIGH;
+          previousTime = exec.millisESP32 ();
+          interfaceProg(*(prog00 + exec.indice));
+        }
+        else if (lecturaBoton[i]==HIGH && i==1){
+          estadoBoton[i] = LOW;
+        }
+
+        if (lecturaBoton[i]==LOW && i==2 && estadoBoton[i] == LOW){
+          modo = 2; // Destello
+          exec.indice = 0;
+          estadoBoton[i] = HIGH;
+          previousTime = exec.millisESP32 ();
+        }
+        else if (lecturaBoton[i]==HIGH && i==2){
+          estadoBoton[i] = LOW;
+        }
+        
+        if (lecturaBoton[i] == LOW && i == 3 && estadoBoton[i] == LOW){
+          modo = 3; // Prepare for Sicronizado mode, but wait for 30 seconds hold
+          if (startTime == 0) { // If timer not already started, start it
+            startTime = millis();
+          }
+          unsigned long currentTime = millis();
+          if (currentTime - startTime >= duration) { // If button held for 5 seconds
+            // Execute the process for button 3 here
+            wm.resetSettings();
+            ESP.restart();
+            //startTime = 0; // Reset timer
+          }
+          //estadoBoton[i] = HIGH;
+        } else if (lecturaBoton[i] == HIGH && i == 3){
+          if (startTime != 0 && millis() - startTime < duration) { // If button released before 30 seconds
+            // Process was not triggered, reset or handle accordingly
+            startTime = 0; // Reset timer
+          }
+          estadoBoton[i] = LOW;
+        }
+      }
+      // Modos de funcionamiento
+      switch (modo){
+        case 0: //Aislado
+            //Actualiza la máquina de estados
+            aislado();
+            estado = "Aislado";
+            break;
+        case 1: //Manual
+            aislado();
+            estado = "Manual";
+            break;
+        case 2: //Destello
+            destello();
+            estado = "Destello";
+            break;
+        case 3: //Sincronizado
+            sincronizado();
+            //estado = "Reset Wifi";
+            break;
+      }
+    }
+};
+modFunc modos;

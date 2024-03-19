@@ -85,7 +85,7 @@ void setup() {
 void loop() {
   
   // Lectura de Modo
-  modofunc();
+  modos.modofunc();
 
   //timeProc01(); 
 
