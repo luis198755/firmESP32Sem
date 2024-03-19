@@ -36,7 +36,8 @@ WiFiUDP ntpUDP;
 //pool.ntp.org
 //mx.pool.ntp.org
 //time-a-g.nist.gov
-NTPClient timeClient(ntpUDP, "mx.pool.ntp.org", -21600, 60000);
+//mx.pool.ntp.org
+NTPClient timeClient(ntpUDP, "time-a-g.nist.gov", -21600, 60000);
 /*
 const char* ssid = "NOC_TL";
 const char* password = "TRAFF1CNOC23";
