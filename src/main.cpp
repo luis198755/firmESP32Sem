@@ -32,12 +32,12 @@
 // Archivos *.hpp - Fragmentar el Código
 // -------------------------------------------------------------------
 #include "settings.hpp"
-
+#include "program.hpp"
 #include "settingsReset.hpp"
 #include "settingsRead.hpp"
 #include "settingsSave.hpp"
 
-#include "program.hpp"
+
 #include "classes.hpp"
 #include "functions.hpp"
 #include "coreSettings.hpp"
@@ -65,6 +65,8 @@ void setup() {
       // Salvar las configuraciones del WIFI
       settingsSaveWiFi();
   }
+
+  settingsReadProg();
   
   initThanks();
   initRTC();  // Reloj de Tiempo Real

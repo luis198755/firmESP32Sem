@@ -382,7 +382,7 @@ class ReadConf {
 
         if (i == 0) {
           // First column, store in unsigned long array
-          prog00[rowIndex] = value;
+          //prog00[rowIndex] = value;
         } else if (i >= 1 && i <= 8) {
           // Columns 2 to 9, store in 8x8 array
           time0[rowIndex][i - 1] = (unsigned int)value;

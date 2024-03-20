@@ -45,6 +45,9 @@
 // int longitud = sizeof(prog00) / sizeof(prog00[0]);
 unsigned long prog00[31];
 unsigned int time0[31][8];
+
+unsigned long progJson[31];
+unsigned long dataJson = 0;
 // Time array
 // unsigned int time0[31] = {  
 //                             0,

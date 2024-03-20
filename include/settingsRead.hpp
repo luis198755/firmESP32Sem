@@ -33,3 +33,34 @@ boolean settingsReadWiFi(){
         }
     }
 }
+
+// -------------------------------------------------------------------
+// Leer configuraciones de los Parametros de Programación
+// -------------------------------------------------------------------
+boolean settingsReadProg(){
+    
+    //StaticJsonDocument<768> jsonConfig;    
+    StaticJsonDocument<768> jsonConfig;
+
+    myFile = SD.open("/config/prog.json", FILE_READ);
+    if (myFile) {
+        Serial.println("prog.conf:");
+        if(deserializeJson(jsonConfig, myFile)){
+            // Si falla la lectura inicia valores por defecto
+            //settingsResetWiFi();
+            Serial.println("Error: Falló la lectura de la configuración de Programación, tomando valores por defecto");
+            return false;
+        }else{
+            
+            Serial.println("dataJson: ");
+            for (int i=0; i <= 30; i++) {
+                prog00[i] = jsonConfig["escenarios"]["1"][i];
+                Serial.println(prog00[i]);
+            }
+            
+            myFile.close();
+            Serial.println("Info: Lectura configuración de Programa correcta");
+            return true;
+        }
+    }
+}

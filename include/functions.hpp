@@ -367,7 +367,7 @@ void readFile(fs::FS &fs, const char * path){
 
     int rows = 0;
 
-    rows = progLength(SD, "/prog.txt");
+    rows = progLength(SD, "/config/prog.txt");
     unsigned long matrix [rows] [2]; // to store the matrix, change the size as needed
 
     //Serial.printf("Reading file: %s\n", path);
@@ -417,7 +417,7 @@ void readFile(fs::FS &fs, const char * path){
 }
 
 void initThanks() {
-  readFile(SD, "/prog.txt"); // Lectura de Prueba MicroSD
+  readFile(SD, "/config/prog.txt"); // Lectura de Prueba MicroSD
 
   myFile = SD.open("/config/ctrl.conf", FILE_READ);
   if (myFile) {
