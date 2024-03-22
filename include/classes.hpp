@@ -346,7 +346,7 @@ class ReadConf {
       Serial.println("Ciclos:");
       for (int i = 0; i < rowIndex; i++) {
         for (int j = 0; j < 8; j++) {
-          Serial.print(time0[i][j]);
+          Serial.print(cycleArrayJson[i][j]);
           if (j < 7) Serial.print(", ");
         }
         Serial.println();
@@ -385,7 +385,7 @@ class ReadConf {
           //prog00[rowIndex] = value;
         } else if (i >= 1 && i <= 8) {
           // Columns 2 to 9, store in 8x8 array
-          time0[rowIndex][i - 1] = (unsigned int)value;
+          cycleArrayJson[rowIndex][i - 1] = (unsigned int)value;
         }
 
         fromIndex = toIndex + 1;
@@ -397,13 +397,13 @@ class ReadConf {
     void printArraysProv() {
       Serial.println("Escenarios:");
       for (int i = 0; i < rowIndex; i++) {
-        Serial.println(prog00[i]);
+        Serial.println(progArrayJson[i]);
       }
       
       Serial.println("Ciclos:");
       for (int i = 0; i < rowIndex; i++) {
         for (int j = 0; j < 8; j++) {
-          Serial.print(time0[i][j]);
+          Serial.print(cycleArrayJson[i][j]);
           if (j < 7) Serial.print(", ");
         }
         Serial.println();
@@ -616,11 +616,11 @@ class modFunc {
 
     // Función de modo aislado
     void aislado(){
-      exec.tiempoReal(&time0[0][0], prog00, readconf.rowIndex);
+      exec.tiempoReal(&cycleArrayJson[0][0], progArrayJson, readconf.rowIndex);
     }
     // Función de modo manual
     void manual(){
-      exec.tiempoReal(&time0[0][0], prog00, readconf.rowIndex);
+      exec.tiempoReal(&cycleArrayJson[0][0], progArrayJson, readconf.rowIndex);
     }
     // Función de destello
     void destello(){
@@ -656,7 +656,7 @@ class modFunc {
           exec.indice++;
           estadoBoton[i] = HIGH;
           previousTime = exec.millisESP32 ();
-          interfaceProg(*(prog00 + exec.indice));
+          interfaceProg(*(progArrayJson + exec.indice));
         }
         else if (lecturaBoton[i]==HIGH && i==1){
           estadoBoton[i] = LOW;

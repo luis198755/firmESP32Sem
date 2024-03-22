@@ -43,8 +43,8 @@
 
 // };
 // int longitud = sizeof(prog00) / sizeof(prog00[0]);
-unsigned long prog00[31];
-unsigned int time0[31][8];
+unsigned long progArrayJson[31];
+unsigned int cycleArrayJson[31][8];
 unsigned int eventArrayJson[4][8];
 
 

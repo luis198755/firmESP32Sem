@@ -54,8 +54,8 @@ boolean settingsReadProg(){
             
             Serial.println("dataJson: ");
             for (int i=0; i <= 30; i++) {
-                prog00[i] = jsonConfig["escenarios"]["1"][i];
-                Serial.println(prog00[i]);
+                progArrayJson[i] = jsonConfig["escenarios"]["1"][i];
+                Serial.println(progArrayJson[i]);
             }
 
             Serial.println("Ciclos de JSON: ");
@@ -64,8 +64,8 @@ boolean settingsReadProg(){
                 Serial.print("Ciclo: ");
                 Serial.println(ciclo);
                 for (int i = 0; i <= 30; i++) {
-                    time0[i][ciclo-1] = jsonConfig["ciclos"][String(ciclo)][i];
-                    Serial.println(time0[i][ciclo-1]);
+                    cycleArrayJson[i][ciclo-1] = jsonConfig["ciclos"][String(ciclo)][i];
+                    Serial.println(cycleArrayJson[i][ciclo-1]);
                 }
             }
 
