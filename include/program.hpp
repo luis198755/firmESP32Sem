@@ -179,31 +179,39 @@ int matrix[8][8]; // 8x8 matrix for the remaining columns
 unsigned long escnArray1[8] = {4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295, 4294967295};
 int sizeEscn = sizeof(escnArray1)/sizeof(escnArray1[0]);
 // Arreglo de Tiempo de Escenarios
-unsigned int timeEsc[8] = {10, 10, 12, 10, 10, 10, 10, 10};
-int sizetimeEsc = sizeof(timeEsc)/sizeof(timeEsc[0]);
+// unsigned int timeEsc[8] = {10, 10, 12, 10, 10, 10, 10, 10};
+// int sizetimeEsc = sizeof(timeEsc)/sizeof(timeEsc[0]);
 // Arreglos de Eventos
-int eventArray1[4] = {12, 0, 1, 1};
-int eventArray2[4] = {12, 30, 2, 1};
-int eventArray3[4] = {12, 45, 2, 1};
-int eventArray4[4] = {0, 0, 0, 0};
-int eventArray5[4] = {0, 0, 0, 0};
-int eventArray6[4] = {0, 0, 0, 0};
-int eventArray7[4] = {0, 0, 0, 0};
-int eventArray8[4] = {0, 0, 0, 0};
-int sizeEvent = sizeof(eventArray1)/sizeof(eventArray1[0]);
+unsigned int eventArrayJson_[4][8] = {
+                                        {5, 12, 17, 0, 0, 0, 0, 0},
+                                        {0, 0, 0, 1, 0, 0, 0, 0},
+                                        {0, 1, 2, 1, 0, 0, 0, 0},
+                                        {0, 10, 20, 0, 0, 0, 0, 0}
+};
+//int sizeEvent = sizeof(eventArray1)/sizeof(eventArray1[0]);
 // Arreglos de Ciclos
-int cycleArray1[8] = {70, 25, 25, 0, 0, 0, 0, 0};
-int cycleArray2[8] = {70, 20, 30, 0, 0, 0, 0, 0};
-int cycleArray3[8] = {70, 20, 30, 0, 0, 0, 0, 0};
-int cycleArray4[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-int cycleArray5[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-int cycleArray6[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-int cycleArray7[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-int cycleArray8[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-int sizeCycle = sizeof(cycleArray1)/sizeof(cycleArray1[0]);
+unsigned int cycleArrayJson_[8][8] = {
+                                        {70, 25, 25, 0, 0, 0, 0, 0},
+                                        {70, 20, 30, 0, 0, 0, 0, 0},
+                                        {70, 20, 30, 0, 0, 0, 0, 0},
+                                        {0, 0, 0, 0, 0, 0, 0, 0},
+                                        {0, 0, 0, 0, 0, 0, 0, 0},
+                                        {0, 0, 0, 0, 0, 0, 0, 0},
+                                        {0, 0, 0, 0, 0, 0, 0, 0},
+                                        {0, 0, 0, 0, 0, 0, 0, 0}
+};
+// int cycleArray1[8] = {70, 25, 25, 0, 0, 0, 0, 0};
+// int cycleArray2[8] = {70, 20, 30, 0, 0, 0, 0, 0};
+// int cycleArray3[8] = {70, 20, 30, 0, 0, 0, 0, 0};
+// int cycleArray4[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+// int cycleArray5[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+// int cycleArray6[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+// int cycleArray7[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+// int cycleArray8[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+// int sizeCycle = sizeof(cycleArray1)/sizeof(cycleArray1[0]);
 // Arreglo de Sincronías
-int sincroArray1[8] = {70, 0, 0, 0, 0, 0, 0, 0};
-int sizeSincro = sizeof(sincroArray1)/sizeof(sincroArray1[0]);
+// int sincroArray1[8] = {70, 0, 0, 0, 0, 0, 0, 0};
+// int sizeSincro = sizeof(sincroArray1)/sizeof(sincroArray1[0]);
 
 // Declarar una variable para almacenar el índice del arreglo
 //int indice = 0;

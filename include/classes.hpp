@@ -169,91 +169,40 @@ class devicesEsp32 {
       // Prog info
       JsonObject escenarios = ctrl.createNestedObject("escenarios");
       JsonArray escenarios1 = escenarios.createNestedArray("1");
-      for(int i = 0; i < sizeEscn; i++) {
+      for(int i = 0; i < 4; i++) {
         escenarios1.add(firstColumn[i]);
       }
-
+ 
+      // Eventos
       JsonObject eventos = ctrl.createNestedObject("eventos");
-      JsonArray eventos1 = eventos.createNestedArray("1");
-      for(int i = 0; i < sizeEvent; i++) {
-        eventos1.add(eventArray1[i]);
-      }
-      JsonArray eventos2 = eventos.createNestedArray("2");
-      for(int i = 0; i < sizeEvent; i++) {
-        eventos2.add(eventArray2[i]);
-      }
-      JsonArray eventos3 = eventos.createNestedArray("3");
-      for(int i = 0; i < sizeEvent; i++) {
-        eventos3.add(eventArray3[i]);
-      }
-      JsonArray eventos4 = eventos.createNestedArray("4");
-      for(int i = 0; i < sizeEvent; i++) {
-        eventos4.add(eventArray4[i]);
-      }
-      JsonArray eventos5 = eventos.createNestedArray("5");
-      for(int i = 0; i < sizeEvent; i++) {
-        eventos5.add(eventArray5[i]);
-      }
-      JsonArray eventos6 = eventos.createNestedArray("6");
-      for(int i = 0; i < sizeEvent; i++) {
-        eventos6.add(eventArray6[i]);
-      }
-      JsonArray eventos7 = eventos.createNestedArray("7");
-      for(int i = 0; i < sizeEvent; i++) {
-        eventos7.add(eventArray7[i]);
-      }
-      JsonArray eventos8 = eventos.createNestedArray("8");
-      for(int i = 0; i < sizeEvent; i++) {
-        eventos8.add(eventArray8[i]);
+      for (int j = 1; j <= 8; j++) {
+          JsonArray evento = eventos.createNestedArray(String(j));
+          for (int i = 0; i < 4; i++) {
+              evento.add(eventArrayJson[i][j - 1]);
+          }
       }
 
-
+      // Ciclos
       JsonObject ciclos = ctrl.createNestedObject("ciclos");
-      JsonArray ciclos1 = ciclos.createNestedArray("1");
-      for(int i = 0; i < sizeCycle; i++) {
-        ciclos1.add(matrix[i][0]);
-      }
-      JsonArray ciclos2 = ciclos.createNestedArray("2");
-      for(int i = 0; i < sizeCycle; i++) {
-        ciclos2.add(matrix[i][1]);
-      }
-      JsonArray ciclos3 = ciclos.createNestedArray("3");
-      for(int i = 0; i < sizeCycle; i++) {
-        ciclos3.add(matrix[i][2]);
-      }
-      JsonArray ciclos4 = ciclos.createNestedArray("4");
-      for(int i = 0; i < sizeCycle; i++) {
-        ciclos4.add(matrix[i][3]);
-      }
-      JsonArray ciclos5 = ciclos.createNestedArray("5");
-      for(int i = 0; i < sizeCycle; i++) {
-        ciclos5.add(matrix[i][4]);
-      }
-      JsonArray ciclos6 = ciclos.createNestedArray("6");
-      for(int i = 0; i < sizeCycle; i++) {
-        ciclos6.add(matrix[i][5]);
-      }
-      JsonArray ciclos7 = ciclos.createNestedArray("7");
-      for(int i = 0; i < sizeCycle; i++) {
-        ciclos7.add(matrix[i][6]);
-      }
-      JsonArray ciclos8 = ciclos.createNestedArray("8");
-      for(int i = 0; i < sizeCycle; i++) {
-        ciclos8.add(matrix[i][7]);
+      for (int j = 1; j <= 8; j++) {
+        JsonArray ciclo = ciclos.createNestedArray(String(j));
+        for (int i = 0; i < 8; i++) {
+          ciclo.add(cycleArrayJson[i][j-1]);
+        }
       }
 
-      JsonObject sincronias = ctrl.createNestedObject("sincronias");
-      JsonArray sincronias1 = sincronias.createNestedArray("1");
-      for(int i = 0; i < sizeSincro; i++) {
-        sincronias1.add(sincroArray1[i]);
-      }
+      // JsonObject sincronias = ctrl.createNestedObject("sincronias");
+      // JsonArray sincronias1 = sincronias.createNestedArray("1");
+      // for(int i = 0; i < sizeSincro; i++) {
+      //   sincronias1.add(sincroArray1[i]);
+      // }
+      
       // Nested "Wifi" object
       JsonObject wifi = doc.createNestedObject("Wifi");
       wifi["rssi"] = rssi;
       wifi["txPower"] = txPower;
       wifi["ip"] = ip;
 
-      
       serializeJson(doc, output);
       sendData(output);
 
