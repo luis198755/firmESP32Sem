@@ -172,6 +172,15 @@ class devicesEsp32 {
       for(int i = 0; i < 4; i++) {
         escenarios1.add(firstColumn[i]);
       }
+
+      // Ciclos
+      JsonObject ciclos = ctrl.createNestedObject("ciclos");
+      for (int j = 1; j <= 8; j++) {
+        JsonArray ciclo = ciclos.createNestedArray(String(j));
+        for (int i = 0; i < 8; i++) {
+          ciclo.add(cycleArrayJson[i][j-1]);
+        }
+      }
  
       // Eventos
       JsonObject eventos = ctrl.createNestedObject("eventos");
@@ -182,21 +191,12 @@ class devicesEsp32 {
           }
       }
 
-      // Ciclos
-      JsonObject ciclos = ctrl.createNestedObject("ciclos");
-      for (int j = 1; j <= 8; j++) {
-        JsonArray ciclo = ciclos.createNestedArray(String(j));
-        for (int i = 0; i < 8; i++) {
-          ciclo.add(cycleArrayJson[i][j-1]);
-        }
-      }
-
       // JsonObject sincronias = ctrl.createNestedObject("sincronias");
       // JsonArray sincronias1 = sincronias.createNestedArray("1");
       // for(int i = 0; i < sizeSincro; i++) {
       //   sincronias1.add(sincroArray1[i]);
       // }
-      
+
       // Nested "Wifi" object
       JsonObject wifi = doc.createNestedObject("Wifi");
       wifi["rssi"] = rssi;
