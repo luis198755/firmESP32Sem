@@ -148,26 +148,23 @@
 // int sincroArray[8] = {70, 0, 0, 0, 0, 0, 0, 0};
 // int sizeSincro_ = sizeof(sincroArray)/sizeof(sincroArray[0]);
 
-unsigned long progArrayJson[31];
-unsigned int cycleArrayJson[31][8];
-unsigned int eventArrayJson[4][8];
+unsigned long progArrayJson[31];        // Program Array from JSON saved in microSD
+unsigned int cycleArrayJson[31][8];     // Cycle Array from JSON saved in microSD
+unsigned int eventArrayJson[4][8];      // Event Array from JSON saved in microSD
 
 unsigned long progJson[31];
 unsigned long dataJson = 0;
-
 
 unsigned long blinkRed[3] = {
                             0b00000000000000000000000000000000,
                             0b00000000000000000000000000000000,
                             0b10010010010010010010000000000000 
 };    
-
 unsigned int timeBlinkRed[3] = {
                             0,
                             375,
                             375 
 };    
-
 int longitudTimeBlinkRed = sizeof(blinkRed) / sizeof(blinkRed[0]);
 
 // Variables de Programación
