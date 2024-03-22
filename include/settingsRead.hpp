@@ -68,6 +68,17 @@ boolean settingsReadProg(){
                     Serial.println(time0[i][ciclo-1]);
                 }
             }
+
+            Serial.println("Eventos de JSON: ");
+
+            for (int evento = 1; evento <= 8; evento++) {
+                Serial.print("Evento: ");
+                Serial.println(evento);
+                for (int i = 0; i <= 3; i++) {
+                    eventArrayJson[i][evento-1] = jsonConfig["eventos"][String(evento)][i];
+                    Serial.println(eventArrayJson[i][evento-1]);
+                }
+            }
             
             myFile.close();
             Serial.println("Info: Lectura configuración de Programa correcta");
