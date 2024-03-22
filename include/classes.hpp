@@ -624,7 +624,7 @@ class modFunc {
     }
     // Función de destello
     void destello(){
-      exec.tiempoRealDestello(&time1[0], prog1, longitud1);
+      exec.tiempoRealDestello(&timeBlinkRed[0], blinkRed, longitudTimeBlinkRed);
     }
     // Función de sincronización
     void sincronizado(){
