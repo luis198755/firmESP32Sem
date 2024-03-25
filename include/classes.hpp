@@ -29,6 +29,8 @@ oledTL oledtl;
 
 class dateTimeMan {
 public:
+    DateTime now;
+
     void setTimeFromNTP() {
       timeClient.update();
       DateTime now = DateTime(timeClient.getEpochTime());
@@ -57,7 +59,7 @@ public:
     }
     void printCurrentDateTime() {
 
-        DateTime now = rtc.now();
+        now = rtc.now();
         currentTime = now.unixtime();
 
         rtcHour = now.hour();
@@ -391,7 +393,7 @@ class RealTimeExec {
   		unsigned long previousTime = 0;
   		int indice = 0;
       int led_pin = 13; // Embbeded Pin
-      int ciclo = 0;
+      //int ciclo = 0;
   
   		RealTimeExec (int InpinData, int InpinLatch, int InpinClock, int InpinOE) {
         pinData = InpinData;
@@ -425,7 +427,7 @@ class RealTimeExec {
         //interfaceProg(EscOff);
       }
   		
-      void tiempoReal(unsigned int* time, unsigned long* prog, int longitud){
+      void tiempoReal(unsigned int* time, unsigned long* prog, int longitud, unsigned int ciclo){
         //Revisión de tiempo cumplido
         if ( (millisESP32 () - previousTime >= (*(time + indice * (8) + ciclo))) ){//  *(time + indice)) ){ 
           previousTime = millisESP32 ();
@@ -470,30 +472,47 @@ class RealTimeExec {
       unsigned long long millisESP32 () {
         return (unsigned long long) (esp_timer_get_time () / 1000ULL);
       }
-};
-RealTimeExec exec(12,33,15,27);
+}; 
+RealTimeExec exec(12,33,15,27); // (InpinData, InpinLatch, InpinClock, InpinOE); Register control pins
 
 struct Event {
     DateTime eventTime;
     bool triggered;
+    unsigned int cycle;
+    unsigned int synchrony;
+    
+    Event(const DateTime& dt, unsigned int cycle, unsigned int synchrony) : eventTime(dt), cycle(0), synchrony(0), triggered(false) {
 
-    Event(const DateTime& dt) : eventTime(dt), triggered(false) {}
+    }
 };
 class EventScheduler {
 public:
     Event* events[8]; // Array to hold up to 8 events
     int eventCount = 0;
 
-    void scheduleEvent(const DateTime& dt) {
+    void scheduleEvent(const DateTime& dt, unsigned int cycle, unsigned int synchrony) {
         if (eventCount < 8) {
-            events[eventCount++] = new Event(dt);
+            events[eventCount] = new Event(dt, cycle, synchrony);
+
+            eventCount++;
         }
+
+
     }
 
+    /*
+    unsigned int eventArrayJson_[4][8] = {
+                                        {5, 12, 17, 0, 0, 0, 0, 0},
+                                        {0, 0, 0, 1, 0, 0, 0, 0},
+                                        {0, 1, 2, 1, 0, 0, 0, 0},
+                                        {0, 10, 20, 0, 0, 0, 0, 0}
+};
+    */
+
     void checkAndTriggerEvents() {
-        DateTime now = rtc.now();
+        //DateTime now = rtc.now();
         for (int i = 0; i < eventCount; i++) {
-            if (!events[i]->triggered && now.unixtime() >= events[i]->eventTime.unixtime()) {
+            if (!events[i]->triggered && dateTime.now.unixtime() >= events[i]->eventTime.unixtime()) {
                 events[i]->triggered = true; // Mark event as triggered
                 triggerEvent(i); // Trigger the event
             }
@@ -565,11 +584,11 @@ class modFunc {
 
     // Función de modo aislado
     void aislado(){
-      exec.tiempoReal(&cycleArrayJson[0][0], progArrayJson, readconf.rowIndex);
+      exec.tiempoReal(&cycleArrayJson[0][0], progArrayJson, readconf.rowIndex, 1); // (Time, Esc, esc_long, cycle)
     }
     // Función de modo manual
     void manual(){
-      exec.tiempoReal(&cycleArrayJson[0][0], progArrayJson, readconf.rowIndex);
+      exec.tiempoReal(&cycleArrayJson[0][0], progArrayJson, readconf.rowIndex, 0);
     }
     // Función de destello
     void destello(){

@@ -181,6 +181,8 @@ int sizeEscn = sizeof(escnArray1)/sizeof(escnArray1[0]);
 // Arreglo de Tiempo de Escenarios
 // unsigned int timeEsc[8] = {10, 10, 12, 10, 10, 10, 10, 10};
 // int sizetimeEsc = sizeof(timeEsc)/sizeof(timeEsc[0]);
+
+// Arreglos de Prueba
 // Arreglos de Eventos
 unsigned int eventArrayJson_[4][8] = {
                                         {5, 12, 17, 0, 0, 0, 0, 0},

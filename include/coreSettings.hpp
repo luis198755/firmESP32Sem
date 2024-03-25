@@ -12,8 +12,8 @@ void webServerTask(void * parameter) {
     if(status == WL_CONNECTED) {
       //Serial.println("WiFi Connected");
       if (!client.connected()) {
-      reconnect();
-      statusWifi = "On";
+        reconnect();
+        statusWifi = "On";
       }
       client.loop();
       server.handleClient(); // Handle client requests
@@ -21,10 +21,9 @@ void webServerTask(void * parameter) {
       dateTime.setClock(); // Set date if RTC lost power
 
     } else {
-      //Serial.println("WiFi Not Connected");
-      statusWifi = "Off";
-      wm.autoConnect(ap_nameap,ap_passwordap); // password protected ap
-      
+        //Serial.println("WiFi Not Connected");
+        statusWifi = "Off";
+        wm.autoConnect(ap_nameap,ap_passwordap); // password protected ap
     }
 
     devices.getStatus();
@@ -34,8 +33,6 @@ void webServerTask(void * parameter) {
       
       dateTime.printCurrentDateTime(); // Print the current date and time
       dateTime.displayInfoGPS();
-      
-      scheduler.checkAndTriggerEvents();
 
       //events.print();
 
