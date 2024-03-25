@@ -44,6 +44,9 @@ void webServerTask(void * parameter) {
       }
       counEvent0++;
 
+      Serial.print("Ciclo: ");
+      Serial.println(scheduler.cycle);
+
     }
 
     gps_p();

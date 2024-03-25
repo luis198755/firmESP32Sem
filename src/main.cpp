@@ -76,17 +76,25 @@ void setup() {
   xTaskCreatePinnedToCore(webServerTask, "WebServerTask", 10000, NULL, 1, NULL, 0); // Run on Core 0// Definición de tarea en Core 0
   
   // Schedule events 2 hours apart starting from 8:00 on January 1, 2024
+  /*
   DateTime firstEvent(2024, 3, 25, 12, 12, 0);
   for (int i = 0; i < 8; i++) {
       scheduler.scheduleEvent(firstEvent + TimeSpan(0, 0, 2 * i, 0), 0, 0); // (DateTime, Cycle, Sincr)
   }
+  */
+ DateTime firstEvent(2024, 3, 25, 5, 0, 0);
+ DateTime     second(2024, 3, 25, 13, 50, 0);
+ DateTime      third(2024, 3, 25, 17, 0, 0);
+ scheduler.scheduleEvent(firstEvent, 0, 0); // (DateTime, Cycle, Sincr)
+ scheduler.scheduleEvent(second, 1, 0); // (DateTime, Cycle, Sincr)
+ scheduler.scheduleEvent(third, 2, 0); // (DateTime, Cycle, Sincr)
 
   delay(500);
 }
 /////////////*Void Loop*/////////////
 void loop() {
   
-  scheduler.checkAndTriggerEvents();
+  //scheduler.checkAndTriggerEvents();
 
   // Lectura de Modo
   modos.modofunc();

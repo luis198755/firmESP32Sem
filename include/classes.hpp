@@ -459,6 +459,7 @@ class RealTimeExec {
           // Si el índice llega al final del arreglo, reiniciarlo a cero
           if (indice >= longitud) {
               indice = 0;
+              modo++;
           }
           else {
               // Ejecución de la Programación
@@ -481,7 +482,7 @@ struct Event {
     unsigned int cycle;
     unsigned int synchrony;
     
-    Event(const DateTime& dt, unsigned int cycle, unsigned int synchrony) : eventTime(dt), cycle(0), synchrony(0), triggered(false) {
+    Event(const DateTime& dt, unsigned int cycle, unsigned int synchrony) : eventTime(dt), cycle(cycle), synchrony(synchrony), triggered(false) {
 
     }
 };
@@ -489,6 +490,7 @@ class EventScheduler {
 public:
     Event* events[8]; // Array to hold up to 8 events
     int eventCount = 0;
+    unsigned int cycle = 0;
 
     void scheduleEvent(const DateTime& dt, unsigned int cycle, unsigned int synchrony) {
         if (eventCount < 8) {
@@ -515,6 +517,11 @@ public:
             if (!events[i]->triggered && dateTime.now.unixtime() >= events[i]->eventTime.unixtime()) {
                 events[i]->triggered = true; // Mark event as triggered
                 triggerEvent(i); // Trigger the event
+
+                cycle = events[i]->cycle;
+
+                Serial.print("Ciclo: ");
+                Serial.println(cycle);
             }
         }
     }
@@ -584,7 +591,9 @@ class modFunc {
 
     // Función de modo aislado
     void aislado(){
-      exec.tiempoReal(&cycleArrayJson[0][0], progArrayJson, readconf.rowIndex, 1); // (Time, Esc, esc_long, cycle)
+      
+      scheduler.checkAndTriggerEvents();
+      exec.tiempoReal(&cycleArrayJson[0][0], progArrayJson, readconf.rowIndex, scheduler.cycle); // (Time, Esc, esc_long, cycle)
     }
     // Función de modo manual
     void manual(){
@@ -663,6 +672,10 @@ class modFunc {
       }
       // Modos de funcionamiento
       switch (modo){
+        case -1:
+            destello();
+            estado = "Destello";
+            break;
         case 0: //Aislado
             //Actualiza la máquina de estados
             aislado();

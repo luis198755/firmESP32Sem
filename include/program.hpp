@@ -155,15 +155,27 @@ unsigned int eventArrayJson[4][8];      // Event Array from JSON saved in microS
 unsigned long progJson[31];
 unsigned long dataJson = 0;
 
-unsigned long blinkRed[3] = {
+unsigned long blinkRed[9] = {
                             0b00000000000000000000000000000000,
+                            0b10010010010010010010000000000000,
                             0b00000000000000000000000000000000,
-                            0b10010010010010010010000000000000 
+                            0b10010010010010010010000000000000,
+                            0b00000000000000000000000000000000,
+                            0b10010010010010010010000000000000,
+                            0b00000000000000000000000000000000,
+                            0b10010010010010010010000000000000,
+                            0b00000000000000000000000000000000
 };    
-unsigned int timeBlinkRed[3] = {
+unsigned int timeBlinkRed[9] = {
                             0,
                             375,
-                            375 
+                            375,
+                            375,
+                            375,
+                            375,
+                            375,
+                            375,
+                            375
 };    
 int longitudTimeBlinkRed = sizeof(blinkRed) / sizeof(blinkRed[0]);
 

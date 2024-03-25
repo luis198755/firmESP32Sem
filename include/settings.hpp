@@ -3,7 +3,7 @@
 // -------------------------------------------------------------------
 
 // Variables Globales
-int modo = 0;
+int modo = -1;
 int stateReset = 0;
 String estado = "Aislado";
 
