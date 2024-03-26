@@ -411,7 +411,7 @@ class RealTimeExec {
         pinOE = 27;
         */
         unsigned long previousTime = 0;
-  		  static int indice = 0;
+  		  int indice = 0;
   		}
 
       void initReg() {
@@ -472,6 +472,7 @@ class RealTimeExec {
             Serial.println("Triger");
             modo++;
             previousTime = 0;
+            indice = 0;
           }
           /*Serial.print("Indice: ");
           Serial.println(indice);*/
