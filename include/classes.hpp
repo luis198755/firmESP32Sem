@@ -438,8 +438,8 @@ class RealTimeExec {
   		
       void tiempoReal(unsigned int* time, unsigned long* prog, int longitud, unsigned int ciclo){
         //Revisión de tiempo cumplido
-        if ( (millisESP32 () - previousTime >= (*(time + indice * (8) + ciclo))) ){//  *(time + indice)) ){ 
-          previousTime = millisESP32 ();
+        if ( (millis() - previousTime >= (*(time + indice * (8) + ciclo))) ){//  *(time + indice)) ){ 
+          previousTime = millis();
 
           // Incrementar el índice en uno
           indice++;
@@ -459,8 +459,8 @@ class RealTimeExec {
 
       void tiempoRealDestello(unsigned int* time, unsigned long* prog, int longitud){
         //Revisión de tiempo cumplido
-        if ( (millisESP32 () - previousTime >= *(time + indice)) ){ //  *(time + indice)) ){ 
-          previousTime = millisESP32 ();
+        if ( (millis() - previousTime >= *(time + indice)) ){ //  *(time + indice)) ){ 
+          previousTime = millis();
 
           // Incrementar el índice en uno
           indice++;
@@ -475,7 +475,7 @@ class RealTimeExec {
           }
 
           if ( (rtcMinute % 2 == 0) && (rtcSecond == 0)) {
-            Serial.println("Triggered");
+            Serial.println("Blink to Work Triggered");
             modo++;
             previousTime = 0;
             indice = 0;
@@ -637,7 +637,7 @@ class modFunc {
           modo = 0; // Aislado
           exec.indice = 0;
           estadoBoton[i] = HIGH;
-          previousTime = exec.millisESP32 ();
+          previousTime = millis();
         }
         else if (lecturaBoton[i]==HIGH && i==0){
           estadoBoton[i] = LOW;
@@ -647,7 +647,7 @@ class modFunc {
           modo = 1; // Manual
           exec.indice++;
           estadoBoton[i] = HIGH;
-          previousTime = exec.millisESP32 ();
+          previousTime = millis();
           interfaceProg(*(progArrayJson + exec.indice));
         }
         else if (lecturaBoton[i]==HIGH && i==1){
@@ -658,7 +658,7 @@ class modFunc {
           modo = 2; // Destello
           exec.indice = 0;
           estadoBoton[i] = HIGH;
-          previousTime = exec.millisESP32 ();
+          previousTime = millis();
         }
         else if (lecturaBoton[i]==HIGH && i==2){
           estadoBoton[i] = LOW;
