@@ -94,7 +94,7 @@ void setup() {
 /////////////*Void Loop*/////////////
 void loop() {
   
-  //scheduler.checkAndTriggerEvents();
+  scheduler.checkAndTriggerEvents();
 
   // Lectura de Modo
   modos.modofunc();

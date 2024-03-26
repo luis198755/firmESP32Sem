@@ -62,6 +62,9 @@ public:
         now = rtc.now();
         currentTime = now.unixtime();
 
+        rtcDay = now.day();
+        rtcMonth = now.month(); 
+        rtcYear = now.year();
         rtcHour = now.hour();
         rtcMinute = now.minute();
         rtcSecond = now.second();
@@ -75,9 +78,9 @@ public:
           gpsMinute = minute();
         }
         
-        // char buf[20];
-        // sprintf(buf, "%02d-%02d-%04d %02d:%02d:%02d", now.day(), now.month(), now.year(), now.hour(), now.minute(), now.second());
-        // Serial.println(buf);
+         char buf[20];
+         sprintf(buf, "%02d-%02d-%04d %02d:%02d:%02d", rtcDay, rtcMonth, rtcYear, rtcHour, rtcMinute, rtcSecond);
+         Serial.println(buf);
         
     }
 
@@ -458,12 +461,17 @@ class RealTimeExec {
 
           // Si el índice llega al final del arreglo, reiniciarlo a cero
           if (indice >= longitud) {
-              indice = 0;
-              modo++;
+              indice = 0;              
           }
           else {
               // Ejecución de la Programación
               interfaceProg(*(prog + indice));
+          }
+
+          if ( (rtcMinute % 2 == 0) && (rtcSecond == 0)) {
+            Serial.println("Triger");
+            modo++;
+            previousTime = 0;
           }
           /*Serial.print("Indice: ");
           Serial.println(indice);*/
@@ -592,7 +600,7 @@ class modFunc {
     // Función de modo aislado
     void aislado(){
       
-      scheduler.checkAndTriggerEvents();
+      //scheduler.checkAndTriggerEvents();
       exec.tiempoReal(&cycleArrayJson[0][0], progArrayJson, readconf.rowIndex, scheduler.cycle); // (Time, Esc, esc_long, cycle)
     }
     // Función de modo manual
