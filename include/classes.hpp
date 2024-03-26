@@ -97,20 +97,26 @@ public:
         oled.print("Wifi:"); 	// escribe en pantalla el texto
         oled.print(statusWifi);
         
-        oled.setCursor (0, 15);
-        oled.print(gpsDay);
-        oled.print("/");
-        oled.print(gpsMonth);
-        oled.print("/");
-        oled.print(gpsYear); 
-        oled.setCursor (0, 25);
-        oled.print("GPS:");
-        oled.print(gpsHour);
-        oled.print(":");   
-        oled.print(gpsMinute);
-        oled.print(":"); 
-        oled.print(gpsSecond);  
+        // oled.setCursor (0, 15);
+        // oled.print(gpsDay);
+        // oled.print("/");
+        // oled.print(gpsMonth);
+        // oled.print("/");
+        // oled.print(gpsYear); 
+        // oled.setCursor (0, 25);
+        // oled.print("GPS:");
+        // oled.print(gpsHour);
+        // oled.print(":");   
+        // oled.print(gpsMinute);
+        // oled.print(":"); 
+        // oled.print(gpsSecond);  
           
+        oled.setCursor (0, 25);
+        oled.print(rtcDay);
+        oled.print("/");
+        oled.print(rtcMonth);
+        oled.print("/");
+        oled.print(rtcYear);   
         oled.setCursor (0, 35);
         oled.print("RTC:");
         oled.print(rtcHour);
