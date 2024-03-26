@@ -29,11 +29,12 @@ void webServerTask(void * parameter) {
     }
 
     devices.getStatus();
+    //dateTime.getCurrentDateTime(); // Print the current date and time
 
     if (currentMillis - previousMillis >= interval) { // If interval is exceeded
       previousMillis = currentMillis; // Save the current time
       
-      dateTime.printCurrentDateTime(); // Print the current date and time
+      dateTime.getCurrentDateTime(); // Print the current date and time
       dateTime.displayInfoGPS();
 
       //events.print();

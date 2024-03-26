@@ -57,7 +57,7 @@ public:
         delay(1500);
       }
     }
-    void printCurrentDateTime() {
+    void getCurrentDateTime() {
 
         now = rtc.now();
         currentTime = now.unixtime();
@@ -475,7 +475,7 @@ class RealTimeExec {
           }
 
           if ( (rtcMinute % 2 == 0) && (rtcSecond == 0)) {
-            Serial.println("Triger");
+            Serial.println("Triggered");
             modo++;
             previousTime = 0;
             indice = 0;

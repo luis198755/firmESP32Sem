@@ -84,14 +84,11 @@ void setup() {
       scheduler.scheduleEvent(firstEvent + TimeSpan(0, 0, 2 * i, 0), 0, 0); // (DateTime, Cycle, Sincr)
   }
   */
- DateTime firstEvent(2024, 3, 25, 5, 0, 0);
- DateTime     second(2024, 3, 25, 13, 50, 0);
- DateTime      third(2024, 3, 25, 17, 0, 0);
- scheduler.scheduleEvent(firstEvent, 0, 0); // (DateTime, Cycle, Sincr)
- scheduler.scheduleEvent(second, 1, 0); // (DateTime, Cycle, Sincr)
- scheduler.scheduleEvent(third, 2, 0); // (DateTime, Cycle, Sincr)
-
- delay(1000);
+  dateTime.getCurrentDateTime(); // Print the current date and time
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 17, 00, 0), 0, 0); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 17, 02, 0), 1, 0); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 17, 04, 0), 2, 0); // (DateTime, Cycle, Sincr)
+  delay(1000);
 }
 /////////////*Void Loop*/////////////
 void loop() {
