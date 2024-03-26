@@ -5,6 +5,8 @@ void webServerTask(void * parameter) {
   client.setCallback(callback);
   client.setBufferSize(1024);
 
+  //delay(500);
+
   for(;;) {
     unsigned long currentMillis = millis(); // Get the current time
     
@@ -44,8 +46,8 @@ void webServerTask(void * parameter) {
       }
       counEvent0++;
 
-      Serial.print("Ciclo: ");
-      Serial.println(scheduler.cycle);
+      // Serial.print("Ciclo: ");
+      // Serial.println(scheduler.cycle);
 
     }
 

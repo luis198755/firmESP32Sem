@@ -72,6 +72,8 @@ void setup() {
   initRTC();  // Reloj de Tiempo Real
   initGPS();  // GPS
   initWifi(); //Wifi
+
+  delay(500);
   
   xTaskCreatePinnedToCore(webServerTask, "WebServerTask", 10000, NULL, 1, NULL, 0); // Run on Core 0// Definición de tarea en Core 0
   
@@ -89,7 +91,7 @@ void setup() {
  scheduler.scheduleEvent(second, 1, 0); // (DateTime, Cycle, Sincr)
  scheduler.scheduleEvent(third, 2, 0); // (DateTime, Cycle, Sincr)
 
-  delay(500);
+ delay(1000);
 }
 /////////////*Void Loop*/////////////
 void loop() {

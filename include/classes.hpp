@@ -78,9 +78,9 @@ public:
           gpsMinute = minute();
         }
         
-         char buf[20];
-         sprintf(buf, "%02d-%02d-%04d %02d:%02d:%02d", rtcDay, rtcMonth, rtcYear, rtcHour, rtcMinute, rtcSecond);
-         Serial.println(buf);
+        //  char buf[20];
+        //  sprintf(buf, "%02d-%02d-%04d %02d:%02d:%02d", rtcDay, rtcMonth, rtcYear, rtcHour, rtcMinute, rtcSecond);
+        //  Serial.println(buf);
         
     }
 
