@@ -6,6 +6,7 @@
 int modo = -1;
 int stateReset = 0;
 String estado = "Aislado";
+unsigned int CycleGen = 0;
 
 // -------------------------------------------------------------------
 // Zona JSON

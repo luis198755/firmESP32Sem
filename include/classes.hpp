@@ -124,12 +124,16 @@ public:
         oled.print(rtcMinute);
         oled.print(":"); 
         oled.print(rtcSecond);  
+
+        oled.setCursor (70, 25);
+        oled.print("Ciclo: ");
+        oled.print(CycleGen);
+        
         //oled.setTextSize(3);			// establece tamano de texto en 2
         oled.display();			// muestra en pantalla todo lo establecido anteriormente
         //readRTC();
       }
 };
-
 dateTimeMan dateTime;
 
 class devicesEsp32 {
@@ -534,7 +538,7 @@ public:
                 triggerEvent(i); // Trigger the event
 
                 cycle = events[i]->cycle;
-
+                CycleGen = cycle;
                 Serial.print("Ciclo: ");
                 Serial.println(cycle);
             }
