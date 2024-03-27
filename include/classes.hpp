@@ -111,13 +111,13 @@ public:
         // oled.print(":"); 
         // oled.print(gpsSecond);  
           
-        oled.setCursor (0, 25);
+        oled.setCursor (0, 12);
         oled.print(rtcDay);
         oled.print("/");
         oled.print(rtcMonth);
         oled.print("/");
         oled.print(rtcYear);   
-        oled.setCursor (0, 35);
+        oled.setCursor (70, 12);
         //oled.print("RTC:");
         oled.print(rtcHour);
         oled.print(":");   
@@ -125,9 +125,17 @@ public:
         oled.print(":"); 
         oled.print(rtcSecond);  
 
-        oled.setCursor (70, 25);
-        oled.print("Ciclo: ");
+        oled.setCursor (0, 25);
+        oled.print("Evento: ");
+        oled.print(EventGen);
+
+        oled.setCursor (0, 35);
+        oled.print("Ciclo:  ");
         oled.print(CycleGen);
+
+        oled.setCursor (0, 45);
+        oled.print("Sincr.: ");
+        oled.print(SyncGen);
         
         //oled.setTextSize(3);			// establece tamano de texto en 2
         oled.display();			// muestra en pantalla todo lo establecido anteriormente
@@ -445,8 +453,14 @@ class RealTimeExec {
         if ( (millis() - previousTime >= (*(time + indice * (8) + ciclo))) ){//  *(time + indice)) ){ 
           previousTime = millis();
 
-          // Incrementar el índice en uno
-          indice++;
+          if (scheduler.triggerEventFlag =! true) {
+            // Incrementar el índice en uno
+            indice++;
+          }
+          else {
+            
+          }
+          
 
           // Si el índice llega al final del arreglo, reiniciarlo a cero
           if (indice >= longitud) {
@@ -478,7 +492,7 @@ class RealTimeExec {
               interfaceProg(*(prog + indice));
           }
 
-          if ( (rtcMinute % 2 == 0) && (rtcSecond == 0)) {
+          if ( (rtcMinute % 2 == 0) && (rtcSecond == 0 + SyncGen)) {
             Serial.println("Blink to Work Triggered");
             modo++;
             previousTime = 0;
@@ -510,6 +524,7 @@ public:
     Event* events[8]; // Array to hold up to 8 events
     int eventCount = 0;
     unsigned int cycle = 0;
+    bool triggerEventFlag = false;
 
     void scheduleEvent(const DateTime& dt, unsigned int cycle, unsigned int synchrony) {
         if (eventCount < 8) {
@@ -517,8 +532,6 @@ public:
 
             eventCount++;
         }
-
-
     }
 
     /*
@@ -537,10 +550,15 @@ public:
                 events[i]->triggered = true; // Mark event as triggered
                 triggerEvent(i); // Trigger the event
 
+                EventGen = i+1;
                 cycle = events[i]->cycle;
-                CycleGen = cycle;
-                Serial.print("Ciclo: ");
-                Serial.println(cycle);
+                CycleGen = cycle + 1;
+                SyncGen = events[i]->synchrony;
+
+                triggerEventFlag = true;
+
+                // Serial.print("Ciclo: ");
+                // Serial.println(cycle);
             }
         }
     }

@@ -85,9 +85,9 @@ void setup() {
   }
   */
   dateTime.getCurrentDateTime(); // Print the current date and time
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 18, 0), 1, 0); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 22, 0), 2, 0); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 12, 36, 0), 0, 0); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 12, 38, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 12, 40, 0), 2, 20); // (DateTime, Cycle, Sincr)
   delay(1000);
 }
 /////////////*Void Loop*/////////////
