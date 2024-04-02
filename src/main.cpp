@@ -12,7 +12,7 @@
 // -----------------------Librerías para MQTT--------------------
 #include <PubSubClient.h>
 // -----------------------Librerías para Millis--------------------
-//#include <esp_timer.h>
+#include <esp_timer.h>
 // -----------------------Librerías microSD------------------------
 #include "FS.h"
 #include "SD.h"
@@ -89,6 +89,30 @@ void setup() {
   scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 10, 0), 1, 10); // (DateTime, Cycle, Sincr)
   scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 17, 0, 0), 2, 20); // (DateTime, Cycle, Sincr)
   delay(1000);
+  ////////////////////////////////////////////*Timer Handle*//////////////////////////////////////////
+  
+
+  // Define the data to pass to the callback
+    static CallbackData data = {
+        .timesCalled = 0,
+        .maxCalls = 10, // Stop the timer after 10 calls
+        .message = "Timer callback triggered"
+    };
+
+    // Define the timer characteristics
+    const esp_timer_create_args_t timerArgs = {
+        .callback = &timerCallback,
+        .arg = &data, // Pass the address of data as the argument
+        .name = "MyTimer"
+    };
+
+    // Create the timer
+    esp_timer_create(&timerArgs, &timerHandle);
+
+    // Start the timer conditionally, for example, here we start immediately
+    Serial.println("Starting timer...");
+    esp_timer_start_periodic(timerHandle, 1000000); // 1 second interval
+
 }
 /////////////*Void Loop*/////////////
 void loop() {
