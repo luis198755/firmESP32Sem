@@ -6,10 +6,9 @@ void webServerTask(void * parameter) {
   client.setBufferSize(1024);
 
   //delay(500);
+  //unsigned long currentMillis = 0;
 
   for(;;) {
-    unsigned long currentMillis = millis(); // Get the current time
-    
     status = WiFi.status();
     if(status == WL_CONNECTED) {
       //Serial.println("WiFi Connected");
@@ -31,8 +30,10 @@ void webServerTask(void * parameter) {
     devices.getStatus();
     //dateTime.getCurrentDateTime(); // Print the current date and time
 
-    if (currentMillis - previousMillis >= interval) { // If interval is exceeded
-      previousMillis = currentMillis; // Save the current time
+    //currentMillis = millis(); // Get the current time
+
+    if (millis() - previousMillis >= interval) { // If interval is exceeded
+      previousMillis = millis(); // Save the current time
       
       dateTime.getCurrentDateTime(); // Print the current date and time
       dateTime.displayInfoGPS();

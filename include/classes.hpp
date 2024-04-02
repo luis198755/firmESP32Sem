@@ -453,14 +453,14 @@ class RealTimeExec {
         if ( (millis() - previousTime >= (*(time + indice * (8) + ciclo))) ){//  *(time + indice)) ){ 
           previousTime = millis();
 
-          if (scheduler.triggerEventFlag =! true) {
-            // Incrementar el índice en uno
-            indice++;
-          }
-          else {
+          // if (scheduler.triggerEventFlag =! true) {
+          //   // Incrementar el índice en uno
+          //   indice++;
+          // }
+          // else {
             
-          }
-          
+          // }
+          indice++;
 
           // Si el índice llega al final del arreglo, reiniciarlo a cero
           if (indice >= longitud) {
