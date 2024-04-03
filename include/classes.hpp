@@ -96,20 +96,6 @@ public:
         oled.setCursor(80, 0);			// ubica cursor en inicio de coordenadas 0,0
         oled.print("Wifi:"); 	// escribe en pantalla el texto
         oled.print(statusWifi);
-        
-        // oled.setCursor (0, 15);
-        // oled.print(gpsDay);
-        // oled.print("/");
-        // oled.print(gpsMonth);
-        // oled.print("/");
-        // oled.print(gpsYear); 
-        // oled.setCursor (0, 25);
-        // oled.print("GPS:");
-        // oled.print(gpsHour);
-        // oled.print(":");   
-        // oled.print(gpsMinute);
-        // oled.print(":"); 
-        // oled.print(gpsSecond);  
           
         oled.setCursor (0, 12);
         oled.print(rtcDay);
@@ -125,15 +111,29 @@ public:
         oled.print(":"); 
         oled.print(rtcSecond);  
 
-        oled.setCursor (0, 25);
+        oled.setCursor (0, 22);
+        oled.print(gpsDay);
+        oled.print("/");
+        oled.print(gpsMonth);
+        oled.print("/");
+        oled.print(gpsYear); 
+        oled.setCursor (70, 22);
+        //oled.print("GPS:");
+        oled.print(gpsHour);
+        oled.print(":");   
+        oled.print(gpsMinute);
+        oled.print(":"); 
+        oled.print(gpsSecond);  
+
+        oled.setCursor (0, 35);
         oled.print("Evento: ");
         oled.print(EventGen);
 
-        oled.setCursor (0, 35);
+        oled.setCursor (0, 45);
         oled.print("Ciclo:  ");
         oled.print(CycleGen);
 
-        oled.setCursor (0, 45);
+        oled.setCursor (0, 55);
         oled.print("Sincr.: ");
         oled.print(SyncGen);
         
