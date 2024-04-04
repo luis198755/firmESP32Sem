@@ -453,22 +453,32 @@ class RealTimeExec {
         if ( (millis() - previousTime >= (*(time + indice * (8) + ciclo))) ){//  *(time + indice)) ){ 
           previousTime = millis();
 
-          // if (scheduler.triggerEventFlag =! true) {
-          //   // Incrementar el índice en uno
-          //   indice++;
-          // }
-          // else {
-            
-          // }
-          indice++;
+          if (triggerEventFlag == true && indice == 0) {
+            //Serial.println("Triggger Condition");
+            indice = indice;
+            //interfaceProg(*(prog + indice + 1));
+          }
+          else {
+            indice++;
+          }
+          if (triggerEventFlag == true && rtcSecond == SyncGen) {
+              triggerEventFlag = false;
+              // Serial.println("EventFlag = ");
+              // Serial.println(triggerEventFlag);
+            }
 
           // Si el índice llega al final del arreglo, reiniciarlo a cero
           if (indice >= longitud) {
               indice = 0;
           }
           else {
+            if (triggerEventFlag == true && indice == 0) {
+              interfaceProg(*(prog + indice + 1));
+            }
+            else {
               // Ejecución de la Programación
               interfaceProg(*(prog + indice));
+            }
           }
           /*Serial.print("Indice: ");
           Serial.println(indice);*/
@@ -524,7 +534,6 @@ public:
     Event* events[8]; // Array to hold up to 8 events
     int eventCount = 0;
     unsigned int cycle = 0;
-    bool triggerEventFlag = false;
 
     void scheduleEvent(const DateTime& dt, unsigned int cycle, unsigned int synchrony) {
         if (eventCount < 8) {

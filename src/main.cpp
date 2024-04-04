@@ -86,8 +86,8 @@ void setup() {
   */
   dateTime.getCurrentDateTime(); // Print the current date and time
   scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 10, 0), 1, 10); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 17, 0, 0), 2, 20); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 16, 12, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 16, 16, 0), 2, 30); // (DateTime, Cycle, Sincr)
   delay(1000);
   ////////////////////////////////////////////*Timer Handle*//////////////////////////////////////////
   
