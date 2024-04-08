@@ -86,8 +86,8 @@ void setup() {
   */
   dateTime.getCurrentDateTime(); // Print the current date and time
   scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 16, 12, 0), 1, 10); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 16, 16, 0), 2, 30); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 14, 26, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 14, 28, 0), 2, 30); // (DateTime, Cycle, Sincr)
   delay(1000);
   ////////////////////////////////////////////*Timer Handle*//////////////////////////////////////////
   
@@ -113,18 +113,23 @@ void setup() {
     Serial.println("Starting timer...");
     esp_timer_start_periodic(timerHandle, 1000000); // 1 second interval
 
+
 }
 /////////////*Void Loop*/////////////
 void loop() {
   
-  scheduler.checkAndTriggerEvents();
+    scheduler.checkAndTriggerEvents();
 
-  // Lectura de Modo
-  modos.modofunc();
+    // Lectura de Modo
+    modos.modofunc();
 
+    // if (rtcSecond == 0 && flagSecond == 0) {
+    //     previousTime = millis();
+    //     flagSecond == 1;
+    // }
   
 
-  //timeProc01(); 
+    //timeProc01(); 
 
 }
 

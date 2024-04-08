@@ -133,6 +133,8 @@ unsigned long previousMillis = 0; // Stores the last time LED was updated
 const long interval = 1000; // Interval at which to blink (milliseconds)
 int counEvent0 = 0;
 
+int flagSecond = 0;
+
 // -------------------------------------------------------------------
 // Zona GPS
 // -------------------------------------------------------------------

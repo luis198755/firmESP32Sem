@@ -451,7 +451,7 @@ class RealTimeExec {
       void tiempoReal(unsigned int* time, unsigned long* prog, int longitud, unsigned int ciclo){
         //Revisión de tiempo cumplido
         if ( (millis() - previousTime >= (*(time + indice * (8) + ciclo))) ){//  *(time + indice)) ){ 
-          previousTime = millis();
+          //previousTime = millis();
 
           if (triggerEventFlag == true && indice == 0) {
             //Serial.println("Triggger Condition");
@@ -465,8 +465,8 @@ class RealTimeExec {
               triggerEventFlag = false;
               // Serial.println("EventFlag = ");
               // Serial.println(triggerEventFlag);
-            }
-
+          }
+          //previousTime = millis();
           // Si el índice llega al final del arreglo, reiniciarlo a cero
           if (indice >= longitud) {
               indice = 0;
@@ -480,6 +480,8 @@ class RealTimeExec {
               interfaceProg(*(prog + indice));
             }
           }
+
+          previousTime = millis();
           /*Serial.print("Indice: ");
           Serial.println(indice);*/
         }
@@ -502,7 +504,7 @@ class RealTimeExec {
               interfaceProg(*(prog + indice));
           }
 
-          if ( (rtcMinute % 2 == 0) && (rtcSecond == 0 + SyncGen)) {
+          if ( ((rtcMinute & 1) == 0) && (rtcSecond == 0 + SyncGen)) {
             Serial.println("Blink to Work Triggered");
             modo++;
             previousTime = 0;
