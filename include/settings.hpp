@@ -134,6 +134,7 @@ const long interval = 1000; // Interval at which to blink (milliseconds)
 int counEvent0 = 0;
 
 int flagSecond = 0;
+int minuteflag = 0;
 
 // -------------------------------------------------------------------
 // Zona GPS

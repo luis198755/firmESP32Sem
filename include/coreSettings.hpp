@@ -31,6 +31,7 @@ void webServerTask(void * parameter) {
     //dateTime.getCurrentDateTime(); // Print the current date and time
 
     //currentMillis = millis(); // Get the current time
+    //dateTime.getCurrentDateTime(); // Print the current date and time
 
     if (millis() - previousMillis >= interval) { // If interval is exceeded
       previousMillis = millis(); // Save the current time

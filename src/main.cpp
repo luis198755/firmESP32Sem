@@ -87,7 +87,7 @@ void setup() {
   dateTime.getCurrentDateTime(); // Print the current date and time
   scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
   scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 14, 26, 0), 1, 10); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 14, 28, 0), 2, 30); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 16, 48, 0), 2, 30); // (DateTime, Cycle, Sincr)
   delay(1000);
   ////////////////////////////////////////////*Timer Handle*//////////////////////////////////////////
   
@@ -124,11 +124,17 @@ void loop() {
     modos.modofunc();
 
     // if (rtcSecond == 0 && flagSecond == 0) {
-    //     previousTime = millis();
-    //     flagSecond == 1;
+    //      previousTime = millis();
+    //      minuteflag = rtcMinute;
+    //      flagSecond = 1;
+    //      Serial.println("xxxx");
+    //      if (rtcMinute != minuteflag) {
+    //         flagSecond = 0;
+    //             Serial.println("yyyyy");
+    //      }
     // }
-  
-
+      
+    //dateTime.getCurrentDateTime(); // Print the current date and time
     //timeProc01(); 
 
 }
