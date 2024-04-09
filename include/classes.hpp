@@ -461,6 +461,9 @@ class RealTimeExec {
           // Si el índice llega al final del arreglo, reiniciarlo a cero
           if (indice >= longitud) {
               indice = 0;
+              previousTime = 0;
+              //previousTime = millis();
+              //Serial.println("Synchronizing Sem");
           }
           else {
             if (triggerEventFlag == true && indice == 0) {
@@ -472,9 +475,13 @@ class RealTimeExec {
             }
           }
 
+          // if ( ((rtcMinute & 1) == 0) && (rtcSecond == 0 + SyncGen)) {
+          //   Serial.println("Synchronizing Sem");
+          //   previousTime = 0;
+          //   indice = 0;
+          // }
+
           previousTime = millis();
-          /*Serial.print("Indice: ");
-          Serial.println(indice);*/
         }
       }
 
@@ -498,7 +505,7 @@ class RealTimeExec {
           if ( ((rtcMinute & 1) == 0) && (rtcSecond == 0 + SyncGen)) {
             Serial.println("Blink to Work Triggered");
             modo++;
-            previousTime = 0;
+            previousTime = millis();//previousTime = 0;
             indice = 0;
           }
           /*Serial.print("Indice: ");

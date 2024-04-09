@@ -85,9 +85,15 @@ void setup() {
   }
   */
   dateTime.getCurrentDateTime(); // Print the current date and time
+  // Scheduler Set
   scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 14, 26, 0), 1, 10); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 16, 48, 0), 2, 30); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 0, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 4, 0), 2, 30); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 32, 0), 1, 0); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 40, 0), 1, 0); // (DateTime, Cycle, Sincr)
   delay(1000);
   
 }

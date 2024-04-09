@@ -885,7 +885,7 @@ struct CallbackData {
 // Callback function for the timer
 void timerCallback(void* arg) {
     // Cast the argument back to the correct type
-    // CallbackData* data = static_cast<CallbackData*>(arg);
+    CallbackData* data = static_cast<CallbackData*>(arg);
 
     // // Get the ID of the core running this callback
     // int coreID = xPortGetCoreID();
@@ -912,12 +912,25 @@ void timerCallback(void* arg) {
 
     digitalWrite (exec.led_pin, !digitalRead (exec.led_pin));
 
-    if ( counEvent0 == 10 ) { // Event every 10 s
-      devices.sendStatus();
-      counEvent0 = 0;
-    }
-    counEvent0++;
+    // if ( counEvent0 == 10 ) { // Event every 10 s
+    //   devices.sendStatus();
+    //   counEvent0 = 0;
+    // }
+    // counEvent0++;
 
+    // Update and check the number of times the callback has been called
+    // data->timesCalled++;
+    // Serial.print("Times called: ");
+    // Serial.println(data->timesCalled);
+
+    // Stop the timer after a certain number of calls
+    if (data->timesCalled == data->maxCalls) {
+         //esp_timer_stop(timerHandle);
+         //Serial.println("Timer stopped.");
+         devices.sendStatus();
+         data->timesCalled = 0;
+    }
+    data->timesCalled++;
     // Serial.print("Ciclo: ");
     // Serial.println(scheduler.cycle);
 }
