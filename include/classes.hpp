@@ -68,15 +68,6 @@ public:
         rtcHour = now.hour();
         rtcMinute = now.minute();
         rtcSecond = now.second();
-
-        if (timeStatus()!= timeNotSet) {
-          gpsSecond = second();
-          gpsDay = day();
-          gpsMonth = month();
-          gpsYear = year();
-          gpsHour = hour();
-          gpsMinute = minute();
-        }
         
         //  char buf[20];
         //  sprintf(buf, "%02d-%02d-%04d %02d:%02d:%02d", rtcDay, rtcMonth, rtcYear, rtcHour, rtcMinute, rtcSecond);

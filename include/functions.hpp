@@ -535,6 +535,15 @@ void gps_p() {
       //getTime();
 
       //displayInfoGPS();
+
+      
+      gpsSecond = second();
+      gpsDay = day();
+      gpsMonth = month();
+      gpsYear = year();
+      gpsHour = hour();
+      gpsMinute = minute();
+        
       
       if (setClock <= 2) {
         /* Set Clock with GPS
