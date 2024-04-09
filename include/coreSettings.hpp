@@ -32,6 +32,8 @@ void webServerTask(void * parameter) {
 
     //currentMillis = millis(); // Get the current time
     //dateTime.getCurrentDateTime(); // Print the current date and time
+    gps_p();
+
 
     if (millis() - previousMillis >= interval) { // If interval is exceeded
       previousMillis = millis(); // Save the current time
@@ -54,7 +56,6 @@ void webServerTask(void * parameter) {
 
     }
 
-    gps_p();
     
     
     //vTaskDelay(1); // Delay for 1 tick period
