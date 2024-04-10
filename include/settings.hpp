@@ -141,7 +141,7 @@ int minuteflag = 0;
 // -------------------------------------------------------------------
 static const uint32_t GPSBaud = 9600;
 //TinyGPSPlus gps;  // The TinyGPSPlus object
-TinyGPS gps; 
+TinyGPSPlus gps; 
 const int offset = -6;
 // Ideally, it should be possible to learn the time zone
 // based on the GPS position data.  However, that would

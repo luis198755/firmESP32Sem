@@ -27,7 +27,11 @@
 #include "RTClib.h"
 // -----------------------Librerías GPS----------------------------
 #include <TimeLib.h>
-#include <TinyGPS.h>      
+//#include <TinyGPS.h>      
+//#include <TinyGPS++.h>
+#include <TinyGPSPlus.h>
+
+
 // -------------------------------------------------------------------
 // Archivos *.hpp - Fragmentar el Código
 // -------------------------------------------------------------------

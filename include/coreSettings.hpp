@@ -54,7 +54,7 @@ void webServerTask(void * parameter) {
 
     //currentMillis = millis(); // Get the current time
     //dateTime.getCurrentDateTime(); // Print the current date and time
-    gps_p();
+    //gps_p();
     
     //vTaskDelay(1); // Delay for 1 tick period
     //delay(10); // Yield to the ESP32

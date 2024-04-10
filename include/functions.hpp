@@ -496,46 +496,119 @@ void digitalClockDisplay(){
 
 
 void gps_p() {
+  unsigned long age;
+  int Year;
+  byte Month, Day, Hour, Minute, Second;
 
   while (Serial1.available()) {
     if (gps.encode(Serial1.read())) { // process gps messages
       // when TinyGPS reports new data...
-      unsigned long age;
-      int Year;
-      byte Month, Day, Hour, Minute, Second;
-      gps.crack_datetime(&Year, &Month, &Day, &Hour, &Minute, &Second, NULL, &age);
-      if (age < 500) {
+      
+      if (gps.location.isValid() && gps.date.isValid() && gps.time.isValid()) {
+        // Get altitude
+        //altitude = gps.location.lat(); // Altitude in meters latitude, longitude, altitude;
+        // Get longitude
+        latitude = gps.location.lat();
+        // Get longitude
+        longitude = gps.location.lng();
+        // Get the number of satellites
+        //satellites = gps.satellites();
+
+        Month = gps.date.month();
+        Day = gps.date.day();
+        Year = gps.date.year();
+
+        Hour = gps.time.hour();
+        Minute = gps.time.minute();
+        Second = gps.time.second();
+
         // set the Time to the latest GPS reading
         setTime(Hour, Minute, Second, Day, Month, Year);
         adjustTime(offset * SECS_PER_HOUR);
       }
 
-      
-      gps.f_get_position(&latitude, &longitude, &age);
-      // Get altitude
-      altitude = gps.f_altitude(); // Altitude in meters
-      // Get the number of satellites
-      satellites = gps.satellites();
+      // if (gps.location.isValid())
+      // {
+      //   Serial.print(gps.location.lat(), 6);
+      //   Serial.print(F(","));
+      //   Serial.print(gps.location.lng(), 6);
+      // }
+      // else
+      // {
+      //   Serial.println(F("INVALID LOCATION"));
+      // }
 
-      if (age == TinyGPS::GPS_INVALID_AGE) {
-        Serial.println("No GPS data received: check wiring");
-      } else {
-        /*
-        Serial.print("Latitude: ");
-        Serial.print(latitude, 6); // 6 decimal places
-        Serial.print(", Longitude: ");
-        Serial.println(longitude, 6); // 6 decimal places*/
-      }
+      // Serial.print(F("  Date/Time: "));
+      // if (gps.date.isValid())
+      // {
+      //   Serial.print(gps.date.month());
+      //   Serial.print(F("/"));
+      //   Serial.print(gps.date.day());
+      //   Serial.print(F("/"));
+      //   Serial.println(gps.date.year());
+      // }
+      // else
+      // {
+      //   Serial.println(F("INVALID DATE"));
+      // }
+
+      // Serial.print(F(" "));
+      // if (gps.time.isValid())
+      // {
+      //   if (gps.time.hour() < 10) Serial.print(F("0"));
+      //   Serial.print(gps.time.hour());
+      //   Serial.print(F(":"));
+      //   if (gps.time.minute() < 10) Serial.print(F("0"));
+      //   Serial.print(gps.time.minute());
+      //   Serial.print(F(":"));
+      //   if (gps.time.second() < 10) Serial.print(F("0"));
+      //   Serial.print(gps.time.second());
+      //   Serial.print(F("."));
+      //   if (gps.time.centisecond() < 10) Serial.print(F("0"));
+      //   Serial.println(gps.time.centisecond());
+      // }
+      // else
+      // {
+      //   Serial.println(F("INVALID TIME"));
+      // }
+      
+        // gps.crack_datetime(&Year, &Month, &Day, &Hour, &Minute, &Second, NULL, &age);
+        // if (age < 500) {
+        //   // set the Time to the latest GPS reading
+        //   setTime(Hour, Minute, Second, Day, Month, Year);
+        //   adjustTime(offset * SECS_PER_HOUR);
+        // }
+
+
+        //gps.f_get_position(&latitude, &longitude, &age);
+        // Get altitude
+        //altitude = gps.location.lat(); // Altitude in meters
+        // Get the number of satellites
+        //satellites = gps.satellites();
+      
+      // if (age == TinyGPS::GPS_INVALID_AGE) {
+      //   Serial.println("No GPS data received: check wiring");
+      // } else {
+      //   /*
+      //   Serial.print("Latitude: ");
+      //   Serial.print(latitude, 6); // 6 decimal places
+      //   Serial.print(", Longitude: ");
+      //   Serial.println(longitude, 6); // 6 decimal places*/
+      // }
     }
    
   }
+  // // set the Time to the latest GPS reading
+  //       setTime(Hour, Minute, Second, Day, Month, Year);
+  //       adjustTime(offset * SECS_PER_HOUR);
+
+
   if (timeStatus()!= timeNotSet) {
     if (now() != prevDisplay) { //update the display only if the time has changed
       prevDisplay = now();
       //getTime();
 
       //displayInfoGPS();
-
       
       gpsSecond = second();
       gpsDay = day();
@@ -545,18 +618,18 @@ void gps_p() {
       gpsMinute = minute();
         
       
-      if (setClock <= 2) {
-        /* Set Clock with GPS
-        getTime();
-        rtc.adjust(DateTime(gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond));
-        Serial.println("Time set from GPS");
-        //Serial.println("RTC Adjusted 1°");
-        setClock++;
-        if (setClock == 2) {
-          setClock = 3;
-        }
-        */
-      }
+      // if (setClock <= 2) {
+      //   /* Set Clock with GPS
+      //   getTime();
+      //   rtc.adjust(DateTime(gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond));
+      //   Serial.println("Time set from GPS");
+      //   //Serial.println("RTC Adjusted 1°");
+      //   setClock++;
+      //   if (setClock == 2) {
+      //     setClock = 3;
+      //   }
+      //   */
+      // }
     }
   }
 }
@@ -904,7 +977,7 @@ void timerCallback(void* arg) {
     //     esp_timer_stop(timerHandle);
     //     Serial.println("Timer stopped.");
     // }
-      
+    gps_p();
     dateTime.getCurrentDateTime(); // Print the current date and time
     dateTime.displayInfoGPS();
 
