@@ -87,10 +87,10 @@ int     ap_timeout;                 // Wifi MAnager timeout
 // MQTT Broker
 const char* mqtt_broker = "3.94.215.189";
 const int mqtt_port = 1883;
-const char* espClientMqtt = "ESP32Client04";
-const char* topic = "sem4/modo";
-const char* topicProg = "sem4/prog";
-const char* topicCtrl = "sem4/ctrl";
+const char* espClientMqtt = "ESP32Client05";
+const char* topic = "sem5/modo";
+const char* topicProg = "sem5/prog";
+const char* topicCtrl = "sem5/ctrl";
 
 PubSubClient client(espClient);
 

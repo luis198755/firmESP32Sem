@@ -978,8 +978,22 @@ void timerCallback(void* arg) {
     //     Serial.println("Timer stopped.");
     // }
     gps_p();
+    rtc.adjust(DateTime(gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond));
     dateTime.getCurrentDateTime(); // Print the current date and time
+
+    // Stop the timer after a certain number of calls
+    if (data->timesCalled == data->maxCalls) {
+         //esp_timer_stop(timerHandle);
+         //Serial.println("Timer stopped.");
+         //rtc.adjust(DateTime(gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond));
+         devices.sendStatus();
+         data->timesCalled = 0;
+    }
+    data->timesCalled++;
+
+    
     dateTime.displayInfoGPS();
+    //gps_p();
 
     //events.print();
 
@@ -996,14 +1010,9 @@ void timerCallback(void* arg) {
     // Serial.print("Times called: ");
     // Serial.println(data->timesCalled);
 
-    // Stop the timer after a certain number of calls
-    if (data->timesCalled == data->maxCalls) {
-         //esp_timer_stop(timerHandle);
-         //Serial.println("Timer stopped.");
-         devices.sendStatus();
-         data->timesCalled = 0;
-    }
-    data->timesCalled++;
+    
+    
+    //gps_p();
     // Serial.print("Ciclo: ");
     // Serial.println(scheduler.cycle);
 }
