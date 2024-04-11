@@ -1,16 +1,16 @@
 void webServerTask(void * parameter) {
-  dateTime.getCurrentDateTime(); // Print the current date and time
+  // dateTime.getCurrentDateTime(); // Print the current date and time
 
-  // Scheduler Set
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 0, 0), 1, 10); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 4, 0), 2, 30); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 32, 0), 1, 0); // (DateTime, Cycle, Sincr)
-  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 40, 0), 1, 0); // (DateTime, Cycle, Sincr)
-  delay(1000);
+  // // Scheduler Set
+  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
+  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 0, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 4, 0), 2, 30); // (DateTime, Cycle, Sincr)
+  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
+  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 32, 0), 1, 0); // (DateTime, Cycle, Sincr)
+  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 40, 0), 1, 0); // (DateTime, Cycle, Sincr)
+  // delay(1000);
   
 
   setupServer();
@@ -22,31 +22,8 @@ void webServerTask(void * parameter) {
   //delay(500);
   //unsigned long currentMillis = 0;
 
-
-  ////////////////////////////////////////////*Timer Handle*//////////////////////////////////////////
-  // Define the data to pass to the callback
-  static CallbackData data = {
-      .timesCalled = 0,
-      .maxCalls = 80, // Stop the timer after 10 calls
-      .message = "Timer callback triggered"
-  };
-
-  // Define the timer characteristics
-  const esp_timer_create_args_t timerArgs = {
-      .callback = &timerCallback,
-      .arg = &data, // Pass the address of data as the argument
-      .name = "MyTimer"
-  };
-
-  // Create the timer
-  esp_timer_create(&timerArgs, &timerHandle);
-
-  // Start the timer conditionally, for example, here we start immediately
-  Serial.println("Starting timer...");
-  esp_timer_start_periodic(timerHandle, 125000); // 1 second interval
-
   for(;;) {
-    scheduler.checkAndTriggerEvents();
+    //scheduler.checkAndTriggerEvents();
 
     status = WiFi.status();
     if(status == WL_CONNECTED) {
