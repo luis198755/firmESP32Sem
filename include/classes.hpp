@@ -555,7 +555,7 @@ public:
     void checkAndTriggerEvents() {
         //DateTime now = rtc.now();
         for (int i = 0; i < eventCount; i++) {
-            if (!events[i]->triggered && dateTime.now.unixtime() >= events[i]->eventTime.unixtime()) {
+            if (!events[i]->triggered && (dateTime.now.unixtime() >= events[i]->eventTime.unixtime())) {
                 events[i]->triggered = true; // Mark event as triggered
                 triggerEvent(i); // Trigger the event
 

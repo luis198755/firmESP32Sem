@@ -77,8 +77,6 @@ void setup() {
     initGPS();  // GPS
     initWifi(); //Wifi
 
-    dateTime.getCurrentDateTime(); // Print the current date and time
-
     // Schedule events 2 hours apart starting from 8:00 on January 1, 2024
     /*
     DateTime firstEvent(2024, 3, 25, 12, 12, 0);
@@ -121,6 +119,7 @@ void setup() {
     esp_timer_start_periodic(timerHandle, 125000); // 1 second interval
 
     delay(500);
+    //////////////////////////////////////////////////////////////////////////
   
     xTaskCreatePinnedToCore(webServerTask, "WebServerTask", 10000, NULL, 1, NULL, 0); // Run on Core 0// Definición de tarea en Core 0
     

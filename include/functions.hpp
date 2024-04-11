@@ -188,19 +188,21 @@ void initOLED() {
 
 // Función de inicialización del RTC
 void initRTC() {
-  // Initialize RTC
-  if (!rtc.begin()) {
-    Serial.println("Couldn't find RTC");
-    while (1);
-  }
+    // Initialize RTC
+    if (!rtc.begin()) {
+      Serial.println("Couldn't find RTC");
+      while (1);
+    }
 
-  // Store the current time
-  //last_time = rtc.now();
-  
-  //DateTime now = rtc.now();
+    // Store the current time
+    //last_time = rtc.now();
+    
+    //DateTime now = rtc.now();
 
-  // Print initialization message
-  Serial.println("Inicio");
+    // Print initialization message
+    Serial.println("Inicio");
+
+    dateTime.getCurrentDateTime(); // Print the current date and time
 }
 
 // Función de lectura de info de GPS
