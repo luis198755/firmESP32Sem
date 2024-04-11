@@ -658,20 +658,17 @@ void handleSubmit() {
 }
 
 void setupServer() {
-  /*
-    server.on("/", []() {
-        server.send(200, "text/plain", "Hello World");
-    });*/
-// Define routes
-  server.on("/", HTTP_GET, handleLogin);
-  server.on("/login", HTTP_GET, handleLoginCheck);
-  server.on("/input", HTTP_GET, handleInput);
-  server.on("/submit", HTTP_GET, handleSubmit);
-  server.on("/logout", HTTP_GET, handleLogout); // Logout route
+  
+  // // Define routes
+  // server.on("/", HTTP_GET, handleLogin);
+  // server.on("/login", HTTP_GET, handleLoginCheck);
+  // server.on("/input", HTTP_GET, handleInput);
+  // server.on("/submit", HTTP_GET, handleSubmit);
+  // server.on("/logout", HTTP_GET, handleLogout); // Logout route
 
-  // Start server
-  server.begin();
-  Serial.println("HTTP server started");
+  // // Start server
+  // server.begin();
+  // Serial.println("HTTP server started");
 }
 
 
