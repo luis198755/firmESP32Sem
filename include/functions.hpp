@@ -525,6 +525,8 @@ void gps_p() {
         // set the Time to the latest GPS reading
         setTime(Hour, Minute, Second, Day, Month, Year);
         adjustTime(offset * SECS_PER_HOUR);
+
+        rtc.adjust(DateTime(gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond));
       }
 
       // if (gps.location.isValid())
@@ -978,8 +980,10 @@ void timerCallback(void* arg) {
     //     Serial.println("Timer stopped.");
     // }
     gps_p();
-    rtc.adjust(DateTime(gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond));
+    //rtc.adjust(DateTime(gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond));
     dateTime.getCurrentDateTime(); // Print the current date and time
+
+    dateTime.displayInfoGPS();
 
     // Stop the timer after a certain number of calls
     if (data->timesCalled == data->maxCalls) {
@@ -992,7 +996,7 @@ void timerCallback(void* arg) {
     data->timesCalled++;
 
     
-    dateTime.displayInfoGPS();
+    //dateTime.displayInfoGPS();
     //gps_p();
 
     //events.print();

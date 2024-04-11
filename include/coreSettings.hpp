@@ -12,7 +12,7 @@ void webServerTask(void * parameter) {
   // Define the data to pass to the callback
   static CallbackData data = {
       .timesCalled = 0,
-      .maxCalls = 40, // Stop the timer after 10 calls
+      .maxCalls = 80, // Stop the timer after 10 calls
       .message = "Timer callback triggered"
   };
 
@@ -28,7 +28,7 @@ void webServerTask(void * parameter) {
 
   // Start the timer conditionally, for example, here we start immediately
   Serial.println("Starting timer...");
-  esp_timer_start_periodic(timerHandle, 250000); // 1 second interval
+  esp_timer_start_periodic(timerHandle, 125000); // 1 second interval
 
   for(;;) {
     status = WiFi.status();
