@@ -1,4 +1,18 @@
 void webServerTask(void * parameter) {
+  dateTime.getCurrentDateTime(); // Print the current date and time
+
+  // Scheduler Set
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 0, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 4, 0), 2, 30); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 32, 0), 1, 0); // (DateTime, Cycle, Sincr)
+  scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 40, 0), 1, 0); // (DateTime, Cycle, Sincr)
+  delay(1000);
+  
+
   setupServer();
   // Set up MQTT
   client.setServer(mqtt_broker, mqtt_port);
@@ -7,6 +21,7 @@ void webServerTask(void * parameter) {
 
   //delay(500);
   //unsigned long currentMillis = 0;
+
 
   ////////////////////////////////////////////*Timer Handle*//////////////////////////////////////////
   // Define the data to pass to the callback
@@ -31,6 +46,8 @@ void webServerTask(void * parameter) {
   esp_timer_start_periodic(timerHandle, 125000); // 1 second interval
 
   for(;;) {
+    scheduler.checkAndTriggerEvents();
+
     status = WiFi.status();
     if(status == WL_CONNECTED) {
       //Serial.println("WiFi Connected");
