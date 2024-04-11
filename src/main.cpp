@@ -92,8 +92,8 @@ void setup() {
     scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
     scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
     scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
-    scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 32, 0), 1, 0); // (DateTime, Cycle, Sincr)
-    scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 40, 0), 1, 0); // (DateTime, Cycle, Sincr)
+    scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 18, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
+    scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 24, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
     delay(1000);
 
     ////////////////////////////////////////////*Timer Handle*//////////////////////////////////////////
