@@ -970,19 +970,8 @@ void timerCallback(void* arg) {
     // Serial.print(coreID);
     // Serial.print(": ");
     // Serial.println(data->message);
-    
-    // // Update and check the number of times the callback has been called
-    // data->timesCalled++;
-    // Serial.print("Times called: ");
-    // Serial.println(data->timesCalled);
-
-    // Stop the timer after a certain number of calls
-    // if (data->timesCalled >= data->maxCalls) {
-    //     esp_timer_stop(timerHandle);
-    //     Serial.println("Timer stopped.");
-    // }
+  
     gps_p();
-    //rtc.adjust(DateTime(gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond));
     dateTime.getCurrentDateTime(); // Print the current date and time
 
     dateTime.displayInfoGPS();
@@ -991,34 +980,37 @@ void timerCallback(void* arg) {
     if (data->timesCalled == data->maxCalls) {
          //esp_timer_stop(timerHandle);
          //Serial.println("Timer stopped.");
-         //rtc.adjust(DateTime(gpsYear, gpsMonth, gpsDay, gpsHour, gpsMinute, gpsSecond));
          devices.sendStatus();
          data->timesCalled = 0;
     }
     data->timesCalled++;
 
-    
-    //dateTime.displayInfoGPS();
-    //gps_p();
-
-    //events.print();
-
     digitalWrite (exec.led_pin, !digitalRead (exec.led_pin));
+   
+}
 
-    // if ( counEvent0 == 10 ) { // Event every 10 s
-    //   devices.sendStatus();
-    //   counEvent0 = 0;
-    // }
-    // counEvent0++;
+void setTimerHandle() {
+  ////////////////////////////////////////////*Timer Handle*//////////////////////////////////////////
+  // Define the data to pass to the callback
+  static CallbackData data = {
+      .timesCalled = 0,
+      .maxCalls = 80, // Stop the timer after 10 calls
+      .message = "Timer callback triggered"
+  };
 
-    // Update and check the number of times the callback has been called
-    // data->timesCalled++;
-    // Serial.print("Times called: ");
-    // Serial.println(data->timesCalled);
+  // Define the timer characteristics
+  const esp_timer_create_args_t timerArgs = {
+      .callback = &timerCallback,
+      .arg = &data, // Pass the address of data as the argument
+      .name = "MyTimer"
+  };
 
-    
-    
-    //gps_p();
-    // Serial.print("Ciclo: ");
-    // Serial.println(scheduler.cycle);
+  // Create the timer
+  esp_timer_create(&timerArgs, &timerHandle);
+
+  // Start the timer conditionally, for example, here we start immediately
+  Serial.println("Starting timer...");
+  esp_timer_start_periodic(timerHandle, 125000); // 1 second interval
+
+  delay(500);
 }

@@ -1,26 +1,10 @@
 void webServerTask(void * parameter) {
-  // dateTime.getCurrentDateTime(); // Print the current date and time
-
-  // // Scheduler Set
-  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
-  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 0, 0), 1, 10); // (DateTime, Cycle, Sincr)
-  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 4, 0), 2, 30); // (DateTime, Cycle, Sincr)
-  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
-  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
-  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
-  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 32, 0), 1, 0); // (DateTime, Cycle, Sincr)
-  // scheduler.scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 40, 0), 1, 0); // (DateTime, Cycle, Sincr)
-  // delay(1000);
-  
 
   setupServer();
   // Set up MQTT
   client.setServer(mqtt_broker, mqtt_port);
   client.setCallback(callback);
   client.setBufferSize(1024);
-
-  //delay(500);
-  //unsigned long currentMillis = 0;
 
   for(;;) {
     //scheduler.checkAndTriggerEvents();
@@ -44,11 +28,6 @@ void webServerTask(void * parameter) {
     }
 
     devices.getStatus();
-    //dateTime.getCurrentDateTime(); // Print the current date and time
-
-    //currentMillis = millis(); // Get the current time
-    //dateTime.getCurrentDateTime(); // Print the current date and time
-    //gps_p();
     
     //vTaskDelay(1); // Delay for 1 tick period
     //delay(10); // Yield to the ESP32

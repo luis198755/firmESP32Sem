@@ -580,6 +580,26 @@ public:
         // Class EVENT
     }
 
+    void setScheduler() {
+      // Schedule events 2 hours apart starting from 8:00 on January 1, 2024
+      /*
+      DateTime firstEvent(2024, 3, 25, 12, 12, 0);
+      for (int i = 0; i < 8; i++) {
+          scheduler.scheduleEvent(firstEvent + TimeSpan(0, 0, 2 * i, 0), 0, 0); // (DateTime, Cycle, Sincr)
+      }
+      */
+      // Scheduler Set
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 0, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 4, 0), 2, 30); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 17, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 18, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 24, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      delay(1000);
+    }
+
     ~EventScheduler() {
         for (int i = 0; i < eventCount; i++) {
             delete events[i]; // Clean up dynamically allocated memory
