@@ -555,26 +555,44 @@ public:
     void checkAndTriggerEvents() {
         //DateTime now = rtc.now();
         for (int i = 0; i < eventCount; i++) {
-            if (!events[i]->triggered && (dateTime.now.unixtime() >= events[i]->eventTime.unixtime())) {
-                events[i]->triggered = true; // Mark event as triggered
-                triggerEvent(i); // Trigger the event
-
-                EventGen = i+1;
-                cycle = events[i]->cycle;
-                CycleGen = cycle + 1;
-                SyncGen = events[i]->synchrony;
-
-                triggerEventFlag = true;
-
-                // Serial.print("Ciclo: ");
-                // Serial.println(cycle);
+          if (rtcHour == 14 && rtcMinute == 34 && rtcSecond == 0) {
+            setScheduler();
+            for (int i = 0; i < eventCount; i++) {
+              events[i]->triggered = false; // Mark event as triggered
+              Serial.print("Trigger event: ");
+              Serial.print(i);
+              Serial.print(" - ");
+              Serial.println(events[i]->triggered);
             }
+            for (int i = 0; i < eventCount; i++) {
+              Serial.print("Event : ");
+              Serial.print(i);
+              Serial.print(" - ");
+              Serial.println(events[i]->triggered);
+            }
+
+            Serial.print("Trigger event: ");
+            Serial.print(i);
+            Serial.print(" - ");
+            Serial.println(events[i]->triggered);
+          }
+          if (!events[i]->triggered && (dateTime.now.unixtime() >= events[i]->eventTime.unixtime())) {
+              events[i]->triggered = true; // Mark event as triggered
+              triggerEvent(i); // Trigger the event
+
+              EventGen = i;
+              cycle = events[i]->cycle;
+              CycleGen = cycle;
+              SyncGen = events[i]->synchrony;
+
+              triggerEventFlag = true;
+          }
         }
     }
 
     void triggerEvent(int eventIndex) {
         Serial.print("Event ");
-        Serial.print(eventIndex + 1); // Adjust for zero-based index to make it human-readable
+        Serial.print(eventIndex); // Adjust for zero-based index to make it human-readable
         Serial.println(" triggered!");
         // Add specific actions for each event here
         // Class EVENT
@@ -589,14 +607,14 @@ public:
       }
       */
       // Scheduler Set
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 0, 0), 1, 10); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 4, 0), 2, 30); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 17, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 18, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 24, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 4, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 14, 0), 2, 30); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 21, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 14, 32, 0), 1, 0); // (DateTime, Cycle, Sincr)
       delay(1000);
     }
 
