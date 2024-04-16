@@ -40,7 +40,9 @@ void webServerTask(void * parameter) {
         wm.autoConnect(ap_nameap,ap_passwordap); // password protected ap
     }
 
+    /////////////// ================================== inicia modificacion (agregar la linea del handleClient)
     webServer.handleClient(); // Handle client requests 
+    /////////////// ================================== termina modificacion
 
     devices.getStatus();
     

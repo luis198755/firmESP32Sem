@@ -43,24 +43,7 @@ unsigned long long millisESP32 () {
 
 
 void initWifi() {
-  /*
-  // Connect to Wi-Fi
-  WiFi.begin(ssid, password);
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    //Serial.println("Connecting to WiFi...");
-    displayInfo("Conectando Wifi ...");
-  }
-  //Serial.println("Connected to the WiFi network");
-  //Serial.print("IP Address: ");
-  //Serial.println(WiFi.localIP());
-  displayInfo("IP: " + WiFi.localIP().toString());
-  
-  */
-
-  //esp_wifi_set_ps(WIFI_PS_MIN_MODEM);
-  
     // reset settings - wipe stored credentials for testing
     // these are stored by the esp library
     //wm.resetSettings();
