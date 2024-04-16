@@ -555,7 +555,7 @@ public:
     void checkAndTriggerEvents() {
         //DateTime now = rtc.now();
         for (int i = 0; i < eventCount; i++) {
-          if (rtcHour == 14 && rtcMinute == 34 && rtcSecond == 0) {
+          if (rtcHour == 1 && rtcMinute == 0 && rtcSecond == 0) {
             setScheduler();
             for (int i = 0; i < eventCount; i++) {
               events[i]->triggered = false; // Mark event as triggered
@@ -607,8 +607,8 @@ public:
       }
       */
       // Scheduler Set
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 4, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 12, 40, 0), 0, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 4, 0), 1, 10); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 14, 0), 2, 30); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
