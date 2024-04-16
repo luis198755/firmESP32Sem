@@ -614,7 +614,7 @@ public:
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 21, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 14, 32, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 22, 32, 0), 1, 0); // (DateTime, Cycle, Sincr)
       delay(1000);
     }
 

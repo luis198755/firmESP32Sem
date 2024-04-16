@@ -29,7 +29,7 @@ void webServerTask(void * parameter) {
       client.loop();
 
       /////////////// ================================== inicia modificacion (agregar la linea del handleClient)
-      webServer.handleClient(); // Handle client requests 
+      //webServer.handleClient(); // Handle client requests 
       /////////////// ================================== termina modificacion
 
       dateTime.setClock(); // Set date if RTC lost power
@@ -39,6 +39,8 @@ void webServerTask(void * parameter) {
         statusWifi = "Off";
         wm.autoConnect(ap_nameap,ap_passwordap); // password protected ap
     }
+
+    webServer.handleClient(); // Handle client requests 
 
     devices.getStatus();
     
