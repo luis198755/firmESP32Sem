@@ -607,9 +607,9 @@ public:
       }
       */
       // Scheduler Set
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 12, 40, 0), 0, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 13, 4, 0), 1, 10); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 14, 0), 2, 30); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 52, 0), 0, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 11, 4, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 12, 14, 0), 2, 30); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
@@ -702,17 +702,14 @@ class modFunc {
       for (int i=0; i<CantidadBotonEntrada; i++){
         lecturaBoton[i] = digitalRead(botonEntrada[i]);
 
-        if (lecturaBoton[i]==LOW && i==0 && estadoBoton[i] == LOW){
-          modo = 0; // Aislado
-          exec.indice = 0;
-          estadoBoton[i] = HIGH;
-          previousTime = millis();
+        if (lecturaBoton[i]==LOW && i==0 && estadoBoton[i] == LOW){ // Boton AP / WIFI
+          
         }
         else if (lecturaBoton[i]==HIGH && i==0){
           estadoBoton[i] = LOW;
         }
 
-        if (lecturaBoton[i]==LOW && i==1 && estadoBoton[i] == LOW){
+        if (lecturaBoton[i]==LOW && i==1 && estadoBoton[i] == LOW){ // Botón Manual
           modo = 1; // Manual
           exec.indice++;
           estadoBoton[i] = HIGH;
@@ -723,8 +720,8 @@ class modFunc {
           estadoBoton[i] = LOW;
         }
 
-        if (lecturaBoton[i]==LOW && i==2 && estadoBoton[i] == LOW){
-          modo = 2; // Destello
+        if (lecturaBoton[i]==LOW && i==2 && estadoBoton[i] == LOW){ // Botón de destello
+          modo = -1; // Destello
           exec.indice = 0;
           estadoBoton[i] = HIGH;
           previousTime = millis();
@@ -733,7 +730,7 @@ class modFunc {
           estadoBoton[i] = LOW;
         }
         
-        if (lecturaBoton[i] == LOW && i == 3 && estadoBoton[i] == LOW){
+        if (lecturaBoton[i] == LOW && i == 3 && estadoBoton[i] == LOW){ // Boton de restablecimiento
           modo = 3; // Prepare for Sicronizado mode, but wait for 30 seconds hold
           if (startTime == 0) { // If timer not already started, start it
             startTime = millis();
