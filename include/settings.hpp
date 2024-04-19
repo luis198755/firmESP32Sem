@@ -69,6 +69,8 @@ char    wifi_ssid[30];              // Red WiFi
 char    wifi_passw[30];             // Contraseña da Red WiFi 
 char    wifi_ip_static[15];         // IP Estático   
 int     wifi_mode = WIFI_STA;       // Modo inicial WIFI add
+
+bool     wifi_AP_mode = false;             // Modo inicial WIFI add Station
 // -------------------------------------------------------------------
 // Zona AP
 // -------------------------------------------------------------------

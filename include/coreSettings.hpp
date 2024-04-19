@@ -19,26 +19,29 @@ void webServerTask(void * parameter) {
   for(;;) {
     //scheduler.checkAndTriggerEvents();
 
-    status = WiFi.status();
-    if(status == WL_CONNECTED) {
-      //Serial.println("WiFi Connected");
-      if (!client.connected()) {
-        reconnect();
-        statusWifi = "On";
-      }
-      client.loop();
-      
-      if (flagRTC_NTP == false) {
-        dateTime.setClock(); // Set date if RTC lost power
-        flagRTC_NTP = true;
-        Serial.println("-- RTC CHECK --");
-      }
+    if (wifi_AP_mode == false) {
+      status = WiFi.status();
+      if(status == WL_CONNECTED) {
+        //Serial.println("WiFi Connected");
+        if (!client.connected()) {
+          reconnect();
+          statusWifi = "On";
+        }
+        client.loop();
+        
+        if (flagRTC_NTP == false) {
+          dateTime.setClock(); // Set date if RTC lost power
+          flagRTC_NTP = true;
+          Serial.println("-- RTC CHECK --");
+        }
 
-    } else {
-        //Serial.println("WiFi Not Connected");
-        statusWifi = "Off";
-        wm.autoConnect(ap_nameap,ap_passwordap); // password protected ap
+      } else {
+          //Serial.println("WiFi Not Connected");
+          statusWifi = "Off";
+          wm.autoConnect(ap_nameap,ap_passwordap); // password protected ap
+      }
     }
+ 
 
     /////////////// ================================== inicia modificacion (agregar la linea del handleClient)
     webServer.handleClient(); // Handle client requests 

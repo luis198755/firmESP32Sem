@@ -52,28 +52,43 @@ void initWifi() {
     // if connection fails, it starts an access point with the specified name ( "AutoConnectAP"),
     // if empty will auto generate SSID, if password is blank it will be anonymous AP (wm.autoConnect())
     // then goes into a blocking loop awaiting configuration and will return success result
-    oledtl.displayInfo("Conectando Wifi ...");
-    delay(500);
-    bool res;
-    // res = wm.autoConnect(); // auto generated AP name from chipid
-    // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
-    wm.setConfigPortalTimeout(ap_timeout);
+    if (wifi_AP_mode == false) {
+      oledtl.displayInfo("Conectando Wifi ...");
+      delay(500);
+      bool res;
+      // res = wm.autoConnect(); // auto generated AP name from chipid
+      // res = wm.autoConnect("AutoConnectAP"); // anonymous ap
+      wm.setConfigPortalTimeout(ap_timeout);
 
-    oledtl.displayInfo(String(ap_nameap));
+      oledtl.displayInfo(String(ap_nameap));
 
-    delay(1000);
-    res = wm.autoConnect(ap_nameap, ap_passwordap); // password protected ap
+      delay(1000);
+      res = wm.autoConnect(ap_nameap, ap_passwordap); // password protected ap
 
-    if(!res) {
-        Serial.println("Failed to connect");
-        //wm.resetSettings();
-        //ESP.restart();
-    } 
-    else {
-        //if you get here you have connected to the WiFi    
-        //Serial.println("connected...yeey :)");
-        oledtl.displayInfo("IP: " + WiFi.localIP().toString());
+      if(!res) {
+          Serial.println("Failed to connect");
+          //wm.resetSettings();
+          //ESP.restart();
+      } 
+      else {
+          //if you get here you have connected to the WiFi    
+          //Serial.println("connected...yeey :)");
+          oledtl.displayInfo("IP: " + WiFi.localIP().toString());
+      }
     }
+    else {
+      // Start the WiFi Access Point
+      if(WiFi.softAP(ap_nameap, ap_passwordap)) {
+        Serial.println("AP Started successfully");
+      } else {
+        Serial.println("Failed to start AP");
+      }
+      
+      // Print the IP address of the ESP32
+      Serial.print("AP IP address: ");
+      Serial.println(WiFi.softAPIP());
+    }
+    
     
     WiFi.setTxPower(WIFI_POWER_MINUS_1dBm); // This sets the power to the lowest possible value
     //esp_wifi_set_max_tx_power(0); // Example: Set to a low value, you may need to adjust this
