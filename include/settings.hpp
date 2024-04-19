@@ -87,9 +87,9 @@ int     ap_timeout;                 // Wifi MAnager timeout
 // MQTT Broker
 const char* mqtt_broker = "3.94.215.189";
 const int mqtt_port = 1883;
-const char* espClientMqtt = "ESP32Client00fg000";
-const char* topic = "sem00000/modo";
-const char* topicProg = "sem10/prog";
+const char* espClientMqtt = "ESP32ClientML000";
+const char* topic = "sem0IO000/modo";
+const char* topicProg = "sem10x/prog";
 const char* topicCtrl = "sem10/ctrl";
 
 PubSubClient client(espClient);
@@ -135,6 +135,8 @@ int counEvent0 = 0;
 
 int flagSecond = 0;
 int minuteflag = 0;
+
+bool flagRTC_NTP = false;
 
 // -------------------------------------------------------------------
 // Zona GPS

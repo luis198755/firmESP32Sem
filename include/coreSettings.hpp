@@ -7,8 +7,8 @@ void webServerTask(void * parameter) {
 
   setupServer();
   /////////////// ================================== inicia modificacion
-    // webServer.connectToWiFi("YOUR_SSID", "YOUR_PASSWORD"); // Connect to WiFi
-    webServer.startServer(); // Start the web server
+  // webServer.connectToWiFi("YOUR_SSID", "YOUR_PASSWORD"); // Connect to WiFi
+  webServer.startServer(); // Start the web server
 
   /////////////// ================================== termina modificación
   // Set up MQTT
@@ -27,12 +27,12 @@ void webServerTask(void * parameter) {
         statusWifi = "On";
       }
       client.loop();
-
-      /////////////// ================================== inicia modificacion (agregar la linea del handleClient)
-      //webServer.handleClient(); // Handle client requests 
-      /////////////// ================================== termina modificacion
-
-      dateTime.setClock(); // Set date if RTC lost power
+      
+      if (flagRTC_NTP == false) {
+        dateTime.setClock(); // Set date if RTC lost power
+        flagRTC_NTP = true;
+        Serial.println("-- RTC CHECK --");
+      }
 
     } else {
         //Serial.println("WiFi Not Connected");
