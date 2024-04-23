@@ -14,7 +14,7 @@ unsigned int SyncGen = 0;
 // Zona JSON
 // -------------------------------------------------------------------
 
-String id = "tl0004";
+String id = "tl-ctrl-001";
 char    idDevice[30];                     // ID del dispositivo  
 // Create a JSON object
 StaticJsonDocument<1024> doc; // Adjust size according to your needs 
@@ -89,10 +89,10 @@ int     ap_timeout;                 // Wifi MAnager timeout
 // MQTT Broker
 const char* mqtt_broker = "3.94.215.189";
 const int mqtt_port = 1883;
-const char* espClientMqtt = "ESP32ClientML000";
-const char* topic = "sem0IO000/modo";
-const char* topicProg = "sem10x/prog";
-const char* topicCtrl = "sem10/ctrl";
+const char* espClientMqtt = "tl-ctrl-001";
+const char* topic = "tl-ctrl-001/modo";
+const char* topicProg = "tl-ctrl-001/prog";
+const char* topicCtrl = "tl-ctrl-001/ctrl";
 
 PubSubClient client(espClient);
 
@@ -139,6 +139,8 @@ int flagSecond = 0;
 int minuteflag = 0;
 
 bool flagRTC_NTP = false;
+
+int countGPSbegin = 0;
 
 // -------------------------------------------------------------------
 // Zona GPS

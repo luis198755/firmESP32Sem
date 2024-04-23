@@ -880,8 +880,15 @@ void timerCallback(void* arg) {
     // Serial.print(coreID);
     // Serial.print(": ");
     // Serial.println(data->message);
-  
-    gps_p();
+
+    if (countGPSbegin >= 8000) {
+      gps_p();
+    }
+    else {
+      Serial.println(countGPSbegin);
+      countGPSbegin++;
+    }
+    
     dateTime.getCurrentDateTime(); // Print the current date and time
 
     dateTime.displayInfoGPS();
@@ -904,7 +911,7 @@ void setTimerHandle() {
   // Define the data to pass to the callback
   static CallbackData data = {
       .timesCalled = 0,
-      .maxCalls = 80, // Stop the timer after 10 calls
+      .maxCalls = 80, // 80 * 125000 Each 10 seconds updates
       .message = "Timer callback triggered"
   };
 
