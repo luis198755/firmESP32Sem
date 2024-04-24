@@ -881,11 +881,11 @@ void timerCallback(void* arg) {
     // Serial.print(": ");
     // Serial.println(data->message);
 
-    if (countGPSbegin >= 8000) {
+    if (countGPSbegin >= 9600) { // After 10 min gps_p() begins
       gps_p();
     }
     else {
-      Serial.println(countGPSbegin);
+      //Serial.println(countGPSbegin);
       countGPSbegin++;
     }
     
@@ -911,7 +911,7 @@ void setTimerHandle() {
   // Define the data to pass to the callback
   static CallbackData data = {
       .timesCalled = 0,
-      .maxCalls = 80, // 80 * 125000 Each 10 seconds updates
+      .maxCalls = 160, // 160 * 62,500 us Each 10 seconds updates
       .message = "Timer callback triggered"
   };
 
@@ -927,7 +927,7 @@ void setTimerHandle() {
 
   // Start the timer conditionally, for example, here we start immediately
   Serial.println("Starting timer...");
-  esp_timer_start_periodic(timerHandle, 125000); // 1 second interval
+  esp_timer_start_periodic(timerHandle, 62500); // 1 second interval
 
   delay(500);
 }
