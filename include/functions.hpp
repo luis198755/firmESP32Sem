@@ -881,7 +881,7 @@ void timerCallback(void* arg) {
     // Serial.print(": ");
     // Serial.println(data->message);
 
-    if (countGPSbegin >= 9600) { // After 10 min gps_p() begins
+    if (countGPSbegin >= 19200) { // After 20 min gps_p() begins
       gps_p();
     }
     else {
