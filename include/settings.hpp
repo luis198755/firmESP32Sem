@@ -13,6 +13,11 @@ unsigned int SyncGen = 0;
 // -------------------------------------------------------------------
 // Zona JSON
 // -------------------------------------------------------------------
+//const char* baseTopic = "tl-ctrl-003";
+// Now, let's say you have a variable `deviceID` that you want to use instead of the hardcoded baseTopic:
+const char* deviceID = "tl-ctrl-003";
+const char* subTopic = "modo";
+char fullTopic[50];
 
 String id = "tl-ctrl-003";
 char    idDevice[30];                     // ID del dispositivo  
@@ -89,10 +94,11 @@ int     ap_timeout;                 // Wifi MAnager timeout
 // MQTT Broker
 const char* mqtt_broker = "3.94.215.189";
 const int mqtt_port = 1883;
-const char* espClientMqtt = "tl-ctrl-003";
-const char* topic = "tl-ctrl-003/modo";
-const char* topicProg = "tl-ctrl-003/prog";
-const char* topicCtrl = "tl-ctrl-003/ctrl";
+const char* espClientMqtt = deviceID;
+//const char* topic;// = "tl-ctrl-003/modo";
+char topic[20];
+char topicProg[20];// = "tl-ctrl-003/prog";
+char topicCtrl[20];// = "tl-ctrl-003/ctrl";
 
 PubSubClient client(espClient);
 

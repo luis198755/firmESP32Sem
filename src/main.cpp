@@ -51,6 +51,11 @@ void setup() {
     sessionToken = generateToken();
     //Inicialización del puerto serial del mCU
     Serial.begin(115200);
+
+    // Use sprintf to concatenate the strings into fullTopic:
+    sprintf(topic, "%s/%s", deviceID, subTopic);
+    sprintf(topicProg, "%s/%s", deviceID, "prog");
+    sprintf(topicCtrl, "%s/%s", deviceID, "ctrl");
     
     //////////////////////INICIALIZACIÓN DE HARDWARE/////////////////////////
     exec.initReg(); // Inicializa Registros
@@ -78,7 +83,7 @@ void setup() {
     initWifi(); //Wifi
 
 
-    setTimerHandle();
+    setTimerHandle(); // Define the data to pass to the callback Timer Handle
   
     xTaskCreatePinnedToCore(webServerTask, "WebServerTask", 10000, NULL, 1, NULL, 0); // Run on Core 0// Definición de tarea en Core 0
   
