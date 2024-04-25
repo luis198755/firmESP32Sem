@@ -538,6 +538,29 @@ public:
     void scheduleEvent(const DateTime& dt, unsigned int cycle, unsigned int synchrony) {
         if (eventCount < 8) {
             events[eventCount] = new Event(dt, cycle, synchrony);
+            Serial.print("Event : ");
+            Serial.print(eventCount);
+            Serial.print(" - ");
+            Serial.print("triggered : ");
+            Serial.print(events[eventCount]->triggered);
+            Serial.print(" - ");
+            Serial.print(events[eventCount]->eventTime.day());
+            Serial.print("/");
+            Serial.print(events[eventCount]->eventTime.month());
+            Serial.print("/");
+            Serial.print(events[eventCount]->eventTime.year());
+            Serial.print(" - ");
+            Serial.print(events[eventCount]->eventTime.hour());
+            Serial.print(":");
+            Serial.print(events[eventCount]->eventTime.minute());
+            Serial.print(":");
+            Serial.print(events[eventCount]->eventTime.second());
+            Serial.print(" - ");
+            Serial.print("ciclo: ");
+            Serial.print(events[eventCount]->cycle);
+            Serial.print(" - ");
+            Serial.print("sincronia: ");
+            Serial.println(events[eventCount]->synchrony);
 
             eventCount++;
         }
@@ -554,36 +577,37 @@ public:
 
     void checkAndTriggerEvents() {
         //DateTime now = rtc.now();
-        for (int i = 0; i < eventCount; i++) {
-          if (rtcHour == 1 && rtcMinute == 0 && rtcSecond == 0) {
+        if (rtcHour == 1 && rtcMinute == 0 && rtcSecond == 0) {
+            EventScheduler::eventCount = 0;
             setScheduler();
-            for (int i = 0; i < eventCount; i++) {
-              events[i]->triggered = false; // Mark event as triggered
-              Serial.print("Trigger event: ");
-              Serial.print(i);
-              Serial.print(" - ");
-              Serial.println(events[i]->triggered);
-            }
-            for (int i = 0; i < eventCount; i++) {
-              Serial.print("Event : ");
-              Serial.print(i);
-              Serial.print(" - ");
-              Serial.println(events[i]->triggered);
-            }
+            // for (int i = 0; i < eventCount; i++) {
+            //   events[i]->triggered = false; // Mark event as triggered
+            //   Serial.print("Trigger event: ");
+            //   Serial.print(i);
+            //   Serial.print(" - ");
+            //   Serial.println(events[i]->triggered);
+            // }
+            // for (int i = 0; i < eventCount; i++) {
+            //   Serial.print("Event : ");
+            //   Serial.print(i);
+            //   Serial.print(" - ");
+            //   Serial.println(events[i]->triggered);
+            // }
 
-            Serial.print("Trigger event: ");
-            Serial.print(i);
-            Serial.print(" - ");
-            Serial.println(events[i]->triggered);
-          }
+            // Serial.print("Trigger event: ");
+            // Serial.print(i);
+            // Serial.print(" - ");
+            // Serial.println(events[i]->triggered);
+        }
+        for (int i = 0; i < eventCount; i++) {
           if (!events[i]->triggered && (dateTime.now.unixtime() >= events[i]->eventTime.unixtime())) {
               events[i]->triggered = true; // Mark event as triggered
               triggerEvent(i); // Trigger the event
 
-              EventGen = i;
+              EventGen = i;                   // Evento de ejecución actual
               cycle = events[i]->cycle;
-              CycleGen = cycle;
-              SyncGen = events[i]->synchrony;
+              CycleGen = cycle;               // Ciclo actual
+              SyncGen = events[i]->synchrony; // Sincronía actual
 
               triggerEventFlag = true;
           }
@@ -607,14 +631,14 @@ public:
       }
       */
       // Scheduler Set
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 10, 52, 0), 0, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 11, 4, 0), 1, 10); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 12, 14, 0), 2, 30); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 20, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 21, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 22, 32, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 2, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 3, 4, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 4, 14, 0), 2, 30); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 6, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 7, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 8, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 9, 0, 0), 1, 0); // (DateTime, Cycle, Sincr)
       delay(1000);
     }
 
