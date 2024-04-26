@@ -538,29 +538,30 @@ public:
     void scheduleEvent(const DateTime& dt, unsigned int cycle, unsigned int synchrony) {
         if (eventCount < 8) {
             events[eventCount] = new Event(dt, cycle, synchrony);
-            Serial.print("Event : ");
-            Serial.print(eventCount);
-            Serial.print(" - ");
-            Serial.print("triggered : ");
-            Serial.print(events[eventCount]->triggered);
-            Serial.print(" - ");
-            Serial.print(events[eventCount]->eventTime.day());
-            Serial.print("/");
-            Serial.print(events[eventCount]->eventTime.month());
-            Serial.print("/");
-            Serial.print(events[eventCount]->eventTime.year());
-            Serial.print(" - ");
-            Serial.print(events[eventCount]->eventTime.hour());
-            Serial.print(":");
-            Serial.print(events[eventCount]->eventTime.minute());
-            Serial.print(":");
-            Serial.print(events[eventCount]->eventTime.second());
-            Serial.print(" - ");
-            Serial.print("ciclo: ");
-            Serial.print(events[eventCount]->cycle);
-            Serial.print(" - ");
-            Serial.print("sincronia: ");
-            Serial.println(events[eventCount]->synchrony);
+
+            // Serial.print("Event : ");
+            // Serial.print(eventCount);
+            // Serial.print(" - ");
+            // Serial.print("triggered : ");
+            // Serial.print(events[eventCount]->triggered);
+            // Serial.print(" - ");
+            // Serial.print(events[eventCount]->eventTime.day());
+            // Serial.print("/");
+            // Serial.print(events[eventCount]->eventTime.month());
+            // Serial.print("/");
+            // Serial.print(events[eventCount]->eventTime.year());
+            // Serial.print(" - ");
+            // Serial.print(events[eventCount]->eventTime.hour());
+            // Serial.print(":");
+            // Serial.print(events[eventCount]->eventTime.minute());
+            // Serial.print(":");
+            // Serial.print(events[eventCount]->eventTime.second());
+            // Serial.print(" - ");
+            // Serial.print("ciclo: ");
+            // Serial.print(events[eventCount]->cycle);
+            // Serial.print(" - ");
+            // Serial.print("sincronia: ");
+            // Serial.println(events[eventCount]->synchrony);
 
             eventCount++;
         }
@@ -577,7 +578,7 @@ public:
 
     void checkAndTriggerEvents() {
         //DateTime now = rtc.now();
-        if (rtcHour == 1 && rtcMinute == 0 && rtcSecond == 0 && flagDayChange == 0) {
+        if (rtcHour == 1 && rtcMinute == 1 && rtcSecond == 0 && flagDayChange == 0) {
             flagDayChange = 1;
             EventScheduler::eventCount = 0;
             setScheduler();
@@ -642,8 +643,8 @@ public:
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 4, 14, 0), 2, 30); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 6, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 7, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 8, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 7, 00, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 16, 54, 0), 1, 0); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 17, 0, 0), 1, 0); // (DateTime, Cycle, Sincr)
       //delay(1000);
     }
@@ -735,10 +736,29 @@ class modFunc {
         if (lecturaBoton[i]==LOW && i==0 && estadoBoton[i] == LOW){ // Boton AP / WIFI
           estadoBoton[i] = HIGH;
           for (int i = 0; i<8; i++) {
-            Serial.print("Event ");
-            Serial.print(i); // Adjust for zero-based index to make it human-readable
-            Serial.print(" triggered! -> ");
-            Serial.println(scheduler.events[i]->triggered);
+            Serial.print("Event : ");
+            Serial.print(i);
+            Serial.print(" - ");
+            Serial.print("triggered : ");
+            Serial.print(scheduler.events[i]->triggered);
+            Serial.print(" - ");
+            Serial.print(scheduler.events[i]->eventTime.day());
+            Serial.print("/");
+            Serial.print(scheduler.events[i]->eventTime.month());
+            Serial.print("/");
+            Serial.print(scheduler.events[i]->eventTime.year());
+            Serial.print(" - ");
+            Serial.print(scheduler.events[i]->eventTime.hour());
+            Serial.print(":");
+            Serial.print(scheduler.events[i]->eventTime.minute());
+            Serial.print(":");
+            Serial.print(scheduler.events[i]->eventTime.second());
+            Serial.print(" - ");
+            Serial.print("ciclo: ");
+            Serial.print(scheduler.events[i]->cycle);
+            Serial.print(" - ");
+            Serial.print("sincronia: ");
+            Serial.println(scheduler.events[i]->synchrony);
           }
         }
         else if (lecturaBoton[i]==HIGH && i==0){

@@ -15,7 +15,7 @@ unsigned int SyncGen = 0;
 // -------------------------------------------------------------------
 //const char* baseTopic = "tl-ctrl-003";
 // Now, let's say you have a variable `deviceID` that you want to use instead of the hardcoded baseTopic:
-const char* deviceID = "tl-ctrl-005";
+const char* deviceID = "tl-ctrl-007";
 const char* subTopic = "modo";
 char fullTopic[50];
 
