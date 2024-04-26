@@ -577,15 +577,18 @@ public:
 
     void checkAndTriggerEvents() {
         //DateTime now = rtc.now();
-        if (rtcHour == 1 && rtcMinute == 0 && rtcSecond == 0) {
+        if (rtcHour == 1 && rtcMinute == 0 && rtcSecond == 0 && flagDayChange == 0) {
+            flagDayChange = 1;
             EventScheduler::eventCount = 0;
             setScheduler();
+
             // for (int i = 0; i < eventCount; i++) {
+            //   // Serial.print("Trigger event: ");
+            //   // Serial.print(i);
+            //   // Serial.print(" - ");
+            //   // Serial.println(events[i]->triggered);
+
             //   events[i]->triggered = false; // Mark event as triggered
-            //   Serial.print("Trigger event: ");
-            //   Serial.print(i);
-            //   Serial.print(" - ");
-            //   Serial.println(events[i]->triggered);
             // }
             // for (int i = 0; i < eventCount; i++) {
             //   Serial.print("Event : ");
@@ -599,6 +602,8 @@ public:
             // Serial.print(" - ");
             // Serial.println(events[i]->triggered);
         }
+
+        
         for (int i = 0; i < eventCount; i++) {
           if (!events[i]->triggered && (dateTime.now.unixtime() >= events[i]->eventTime.unixtime())) {
               events[i]->triggered = true; // Mark event as triggered
@@ -617,7 +622,8 @@ public:
     void triggerEvent(int eventIndex) {
         Serial.print("Event ");
         Serial.print(eventIndex); // Adjust for zero-based index to make it human-readable
-        Serial.println(" triggered!");
+        Serial.print(" triggered! -> ");
+        Serial.println(events[eventIndex]->triggered);
         // Add specific actions for each event here
         // Class EVENT
     }
@@ -638,8 +644,8 @@ public:
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 6, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 7, 28, 0), 1, 10); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 8, 00, 0), 1, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 9, 0, 0), 1, 0); // (DateTime, Cycle, Sincr)
-      delay(1000);
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 17, 0, 0), 1, 0); // (DateTime, Cycle, Sincr)
+      //delay(1000);
     }
 
     ~EventScheduler() {
@@ -727,7 +733,13 @@ class modFunc {
         lecturaBoton[i] = digitalRead(botonEntrada[i]);
 
         if (lecturaBoton[i]==LOW && i==0 && estadoBoton[i] == LOW){ // Boton AP / WIFI
-          
+          estadoBoton[i] = HIGH;
+          for (int i = 0; i<8; i++) {
+            Serial.print("Event ");
+            Serial.print(i); // Adjust for zero-based index to make it human-readable
+            Serial.print(" triggered! -> ");
+            Serial.println(scheduler.events[i]->triggered);
+          }
         }
         else if (lecturaBoton[i]==HIGH && i==0){
           estadoBoton[i] = LOW;

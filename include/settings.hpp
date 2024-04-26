@@ -15,7 +15,7 @@ unsigned int SyncGen = 0;
 // -------------------------------------------------------------------
 //const char* baseTopic = "tl-ctrl-003";
 // Now, let's say you have a variable `deviceID` that you want to use instead of the hardcoded baseTopic:
-const char* deviceID = "tl-ctrl-003";
+const char* deviceID = "tl-ctrl-005";
 const char* subTopic = "modo";
 char fullTopic[50];
 
@@ -147,6 +147,7 @@ int minuteflag = 0;
 bool flagRTC_NTP = false;
 
 int countGPSbegin = 0;
+int flagDayChange = 0;
 
 // -------------------------------------------------------------------
 // Zona GPS
