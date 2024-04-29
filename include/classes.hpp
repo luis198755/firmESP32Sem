@@ -578,7 +578,7 @@ public:
 
     void checkAndTriggerEvents() {
         //DateTime now = rtc.now();
-        if (rtcHour == 1 && rtcMinute == 1 && rtcSecond == 0 && flagDayChange == 0) {
+        if (rtcHour == 0 && rtcMinute == 0 && rtcSecond == 0 && flagDayChange == 0) {
             flagDayChange = 1;
             EventScheduler::eventCount = 0;
             setScheduler();
@@ -638,8 +638,8 @@ public:
       }
       */
       // Scheduler Set
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 2, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 3, 4, 0), 1, 10); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 1, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 2, 4, 0), 1, 10); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 4, 14, 0), 2, 30); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 6, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
