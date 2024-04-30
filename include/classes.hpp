@@ -644,7 +644,7 @@ public:
       // Scheduler Set
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 1, 0, 0), 0, 0); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 2, 4, 0), 1, 10); // (DateTime, Cycle, Sincr)
-      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 4, 14, 0), 2, 30); // (DateTime, Cycle, Sincr)
+      scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 3, 14, 0), 2, 30); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 5, 16, 0), 1, 10); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 6, 22, 0), 1, 0); // (DateTime, Cycle, Sincr)
       scheduleEvent(DateTime(rtcYear, rtcMonth, rtcDay, 7, 00, 0), 1, 10); // (DateTime, Cycle, Sincr)
