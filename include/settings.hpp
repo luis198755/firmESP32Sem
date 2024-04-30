@@ -19,7 +19,7 @@ const char* deviceID = "tl-ctrl-005";
 const char* subTopic = "modo";
 char fullTopic[50];
 
-String id = "tl-ctrl-003";
+String id = "tl-ctrl-004";
 char    idDevice[30];                     // ID del dispositivo  
 // Create a JSON object
 StaticJsonDocument<1024> doc; // Adjust size according to your needs 

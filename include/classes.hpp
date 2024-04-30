@@ -604,6 +604,10 @@ public:
             // Serial.println(events[i]->triggered);
         }
 
+        if (rtcSecond > 0) {
+              flagDayChange = 0;
+        }
+
         
         for (int i = 0; i < eventCount; i++) {
           if (!events[i]->triggered && (dateTime.now.unixtime() >= events[i]->eventTime.unixtime())) {
